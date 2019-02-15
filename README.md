@@ -13,7 +13,7 @@ Install via npm:
 ES5:
 
 ```javascript
-  var Match = require('@mrlhumphreys/jcheckers').default.Match;
+  var Match = require('@mrlhumphreys/jcheckers').Match;
 ```
 
 ES6:
