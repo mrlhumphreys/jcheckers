@@ -119,63 +119,24 @@ describe("Match", () => {
   });
 
   describe("movePossible", () => {
-    it("returns true if the square is selectable", () => {
+    it("returns the result from GameState", () => {
       let match = new Match(matchArgs);
       let fromId = 12;      
       expect(match.movePossible(fromId)).toBe(true);
     });
-
-    it("returns false if the square is not selectable", () => {
-      let match = new Match(matchArgs);
-      let fromId = 5;      
-      expect(match.movePossible(fromId)).toBe(false);
-    });
   });
 
   describe("moveValid", () => {
-    it("returns true if the piece can move", () => {
+    it("returns the result from GameState", () => {
       let match = new Match(matchArgs);
       expect(match.moveValid(12, [], 16)).toBe(true);
-    });
-
-    it("returns false if the piece cannot move", () => {
-      let match = new Match(matchArgs);
-      expect(match.moveValid(5, [], 9)).toBe(false);
     });
   });
 
   describe("moveComplete", () => {
-    it("returns true if a move", () => {
+    it("returns the result from gameState", () => {
       let match = new Match(matchArgs);
       expect(match.moveComplete(12, [], 16)).toBe(true);
-    });
-
-    it("returns false if jump type and it can continue", () => {
-      let squares = [
-        { id: 1, x: 1, y: 0, piece: { id: 1, player_number: 1, king: false }},
-        { id: 6, x: 2, y: 1, piece: { id: 13, player_number: 2, king: false }},
-        { id: 10, x: 3, y: 2, piece: null},
-        { id: 14, x: 2, y: 3, piece: { id: 14, player_number: 2, king: false }},
-        { id: 17, x: 1, y: 4, piece: null}
-      ];
-      let gameState = Object.assign({}, matchArgs.game_state, {squares: squares});
-      let args = Object.assign({}, matchArgs, {game_state: gameState});
-      let match = new Match(args);
-      expect(match.moveComplete(1, [], 10)).toBe(false);
-    });
-
-    it("returns true if jump type and it cannot continue", () => {
-      let squares = [
-        { id: 1, x: 1, y: 0, piece: { id: 1, player_number: 1, king: false }},
-        { id: 6, x: 2, y: 1, piece: { id: 13, player_number: 2, king: false }},
-        { id: 10, x: 3, y: 2, piece: null},
-        { id: 14, x: 2, y: 3, piece: { id: 14, player_number: 2, king: false }},
-        { id: 17, x: 1, y: 4, piece: null}
-      ];
-      let gameState = Object.assign({}, matchArgs.game_state, {squares: squares});
-      let args = Object.assign({}, matchArgs, {game_state: gameState});
-      let match = new Match(args);
-      expect(match.moveComplete(1, [10], 17)).toBe(true);
     });
   });
 });

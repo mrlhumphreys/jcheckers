@@ -1,3 +1,3 @@
 import Match from './match'
 
-export { Match }
+export default { Match }

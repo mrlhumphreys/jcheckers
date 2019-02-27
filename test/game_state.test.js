@@ -73,4 +73,63 @@ describe('GameState', () => {
       expect(gameState.playersTurn(2)).toBe(false);
     });
   });
+
+  describe("movePossible", () => {
+    it("returns true if the square is selectable", () => {
+      let gameState = new GameState(gameStateArgs);
+      let fromId = 12;      
+      expect(gameState.movePossible(fromId)).toBe(true);
+    });
+
+    it("returns false if the square is not selectable", () => {
+      let gameState = new GameState(gameStateArgs);
+      let fromId = 5;      
+      expect(gameState.movePossible(fromId)).toBe(false);
+    });
+  });
+
+  describe("moveValid", () => {
+    it("returns true if the piece can move", () => {
+      let gameState = new GameState(gameStateArgs);
+      expect(gameState.moveValid(12, [], 16)).toBe(true);
+    });
+
+    it("returns false if the piece cannot move", () => {
+      let gameState = new GameState(gameStateArgs);
+      expect(gameState.moveValid(5, [], 9)).toBe(false);
+    });
+  });
+
+  describe("moveComplete", () => {
+    it("returns true if a move", () => {
+      let gameState = new GameState(gameStateArgs);
+      expect(gameState.moveComplete(12, [], 16)).toBe(true);
+    });
+
+    it("returns false if jump type and it can continue", () => {
+      let squares = [
+        { id: 1, x: 1, y: 0, piece: { id: 1, player_number: 1, king: false }},
+        { id: 6, x: 2, y: 1, piece: { id: 13, player_number: 2, king: false }},
+        { id: 10, x: 3, y: 2, piece: null},
+        { id: 14, x: 2, y: 3, piece: { id: 14, player_number: 2, king: false }},
+        { id: 17, x: 1, y: 4, piece: null}
+      ];
+      let args = Object.assign({}, gameStateArgs, {squares: squares});
+      let gameState = new GameState(args);
+      expect(gameState.moveComplete(1, [], 10)).toBe(false);
+    });
+
+    it("returns true if jump type and it cannot continue", () => {
+      let squares = [
+        { id: 1, x: 1, y: 0, piece: { id: 1, player_number: 1, king: false }},
+        { id: 6, x: 2, y: 1, piece: { id: 13, player_number: 2, king: false }},
+        { id: 10, x: 3, y: 2, piece: null},
+        { id: 14, x: 2, y: 3, piece: { id: 14, player_number: 2, king: false }},
+        { id: 17, x: 1, y: 4, piece: null}
+      ];
+      let args = Object.assign({}, gameStateArgs, {squares: squares});
+      let gameState = new GameState(args);
+      expect(gameState.moveComplete(1, [10], 17)).toBe(true);
+    });
+  });
 });
