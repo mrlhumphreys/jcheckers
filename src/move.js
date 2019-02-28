@@ -7,11 +7,17 @@ class Move {
     this.toIds = args.toIds;
     this.proposedToId = args.proposedToId;
     this.gameState = args.gameState;
+    this.error = null;
   }
  
   possible() {
     let fromSquare = this.gameState.findSquareById(this.fromId);
-    return fromSquare.selectable(this.gameState.squares);
+    if (fromSquare.selectable(this.gameState.squares)) {
+      this.error = null;
+    } else {
+      this.error = { name: 'CannotMoveError', message: 'This piece cannot move' };
+    } 
+    return this.error === null;
   }
 
   valid() {
@@ -20,9 +26,17 @@ class Move {
     let proposedToSquare = this.gameState.findSquareById(this.proposedToId);
     let legs = this._legs(fromSquare, toSquares, proposedToSquare);
 
-    return eachCons(legs,2).every((leg) => {
+    let allLegsActionable = eachCons(legs,2).every((leg) => {
       return leg[0].actionable(fromSquare.piece, leg[1], this.gameState.squares);
     });
+
+    if (allLegsActionable) {
+      this.error = null;
+    } else {
+      this.error = { name: 'CannotMoveError', message: 'This piece cannot move that way' };
+    }
+
+    return this.error === null;
   }
 
   complete() {

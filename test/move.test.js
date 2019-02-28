@@ -8,6 +8,7 @@ describe('Move', () => {
       let fromId = 12;      
       let move = new Move({fromId: fromId, gameState: gameState});
       expect(move.possible()).toBe(true);
+      expect(move.error).toBe(null);
     });
 
     it("returns false if the square is not selectable", () => {
@@ -15,6 +16,7 @@ describe('Move', () => {
       let fromId = 5;      
       let move = new Move({fromId: fromId, gameState: gameState});
       expect(move.possible()).toBe(false);
+      expect(move.error.name).toEqual('CannotMoveError');
     });
   }); 
 
@@ -23,12 +25,14 @@ describe('Move', () => {
       let gameState = fixtures('game_state');
       let move = new Move({fromId: 12, toIds: [], proposedToId: 16, gameState: gameState});
       expect(move.valid()).toBe(true);
+      expect(move.error).toBe(null);
     });
 
     it("returns false if the piece cannot move", () => {
       let gameState = fixtures('game_state');
       let move = new Move({fromId: 5, toIds: [], proposedToId: 9, gameState: gameState});
       expect(move.valid()).toBe(false);
+      expect(move.error.name).toEqual('CannotMoveError');
     });
   }); 
 
