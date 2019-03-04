@@ -3,10 +3,12 @@ import GameState from './game_state';
 
 class Match {
   constructor(args) {
-    this.id = args.id
-    this.gameState = new GameState(args.game_state)
-    this.players = args.players
-    this.winner = args.winner
+    this.id = args.id;
+    this.gameState = new GameState(args.game_state);
+    this.players = args.players;
+    this.winner = args.winner;
+    this.currentMoveFromId = exists(args.currentMoveFromId) ? args.currentMoveFromId : null;
+    this.currentMoveToIds = exists(args.currentMoveToIds) ? args.currentMoveToIds : [];
   }
 
   squares() {
@@ -54,6 +56,33 @@ class Match {
 
   moveComplete(fromId, toIds, proposedToId) {
     return this.gameState.moveComplete(fromId, toIds, proposedToId);
+  }
+
+  // actions
+
+  selectSquare(squareId) {
+    this.gameState.selectSquare(squareId); 
+  }
+
+  deselectSquares() {
+    this.gameState.deselectSquares();
+  }
+
+  markSquare(squareId) {
+    this.gameState.markSquare(squareId);
+  } 
+
+  addFromToCurrentMove(squareId) {
+    this.currentMoveFromId = squareId;
+  }
+
+  addToToCurrentMove(squareId) {
+    this.currentMoveToIds.push(squareId);
+  }
+
+  clearMove() {
+    this.currentMoveFromId = null;
+    this.currentMoveToIds = [];
   }
 }
 

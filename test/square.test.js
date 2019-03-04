@@ -1,365 +1,6 @@
 import Square from '../src/square'
 import SquareSet from '../src/square_set'
-
-const mustJump = {
-  "current_player_number":1,
-  "squares": [
-    {"x":1,"y":0,"piece":null},
-    {"x":3,"y":0,"piece":null},
-    {"x":5,"y":0,"piece":null},
-    {"x":7,"y":0,"piece":null},
-
-    {"x":0,"y":1,"piece":null},
-    {"x":2,"y":1,"piece":null},
-    {"x":4,"y":1,"piece":null},
-    {"x":6,"y":1,"piece":null},
-
-    {"x":1,"y":2,"piece":null},
-    {"x":3,"y":2,"piece":null},
-    {"x":5,"y":2,"piece":null},
-    {"x":7,"y":2,"piece":null},
-
-    {"x":0,"y":3,"piece":null},
-    {"x":2,"y":3,"piece":null},
-    {"x":4,"y":3,"piece":null},
-    {"x":6,"y":3,"piece":null},
-
-    {"x":1,"y":4,"piece":null},
-    {"x":3,"y":4,"piece":{"player_number":1,"direction":1,"king":false}},
-    {"x":5,"y":4,"piece":null},
-    {"x":7,"y":4,"piece":null},
-
-    {"x":0,"y":5,"piece":null},
-    {"x":2,"y":5,"piece":{"player_number":2,"direction":-1,"king":false}},
-    {"x":4,"y":5,"piece":null},
-    {"x":6,"y":5,"piece":{"player_number":2,"direction":-1,"king":false}},
-
-    {"x":1,"y":6,"piece":null},
-    {"x":3,"y":6,"piece":null},
-    {"x":5,"y":6,"piece":null},
-    {"x":7,"y":6,"piece":null},
-
-    {"x":0,"y":7,"piece":null},
-    {"x":2,"y":7,"piece":null},
-    {"x":4,"y":7,"piece":null},
-    {"x":6,"y":7,"piece":null}
-  ]
-};
-
-const noJump = {
-  "current_player_number":1,
-  "squares": [
-    {"x":1,"y":0,"piece":null},
-    {"x":3,"y":0,"piece":null},
-    {"x":5,"y":0,"piece":null},
-    {"x":7,"y":0,"piece":null},
-
-    {"x":0,"y":1,"piece":null},
-    {"x":2,"y":1,"piece":null},
-    {"x":4,"y":1,"piece":null},
-    {"x":6,"y":1,"piece":null},
-
-    {"x":1,"y":2,"piece":null},
-    {"x":3,"y":2,"piece":null},
-    {"x":5,"y":2,"piece":null},
-    {"x":7,"y":2,"piece":null},
-
-    {"x":0,"y":3,"piece":null},
-    {"x":2,"y":3,"piece":null},
-    {"x":4,"y":3,"piece":null},
-    {"x":6,"y":3,"piece":{"player_number":1,"direction":1,"king":false}},
-
-    {"x":1,"y":4,"piece":null},
-    {"x":3,"y":4,"piece":null},
-    {"x":5,"y":4,"piece":null},
-    {"x":7,"y":4,"piece":null},
-
-    {"x":0,"y":5,"piece":null},
-    {"x":2,"y":5,"piece":{"player_number":2,"direction":-1,"king":false}},
-    {"x":4,"y":5,"piece":null},
-    {"x":6,"y":5,"piece":{"player_number":2,"direction":-1,"king":false}},
-
-    {"x":1,"y":6,"piece":null},
-    {"x":3,"y":6,"piece":null},
-    {"x":5,"y":6,"piece":{"player_number":2,"direction":-1,"king":false}},
-    {"x":7,"y":6,"piece":{"player_number":2,"direction":-1,"king":false}},
-
-    {"x":0,"y":7,"piece":null},
-    {"x":2,"y":7,"piece":null},
-    {"x":4,"y":7,"piece":null},
-    {"x":6,"y":7,"piece":{"player_number":2,"direction":-1,"king":false}}
-  ]
-};
-
-const selectedMustJump = {
-  "current_player_number":1,
-  "squares": [
-    {"x":1,"y":0,"piece":null},
-    {"x":3,"y":0,"piece":null},
-    {"x":5,"y":0,"piece":null},
-    {"x":7,"y":0,"piece":null},
-
-    {"x":0,"y":1,"piece":null},
-    {"x":2,"y":1,"piece":null},
-    {"x":4,"y":1,"piece":null},
-    {"x":6,"y":1,"piece":null},
-
-    {"x":1,"y":2,"piece":null},
-    {"x":3,"y":2,"piece":null},
-    {"x":5,"y":2,"piece":null},
-    {"x":7,"y":2,"piece":null},
-
-    {"x":0,"y":3,"piece":null},
-    {"x":2,"y":3,"piece":null},
-    {"x":4,"y":3,"piece":null},
-    {"x":6,"y":3,"piece":null},
-
-    {"x":1,"y":4,"piece":null},
-    {"x":3,"y":4,"piece":{"player_number":1,"direction":1,"king":false}},
-    {"x":5,"y":4,"piece":null},
-    {"x":7,"y":4,"piece":null},
-
-    {"x":0,"y":5,"piece":null},
-    {"x":2,"y":5,"piece":{"player_number":2,"direction":-1,"king":false}},
-    {"x":4,"y":5,"piece":null},
-    {"x":6,"y":5,"piece":null},
-
-    {"x":1,"y":6,"piece":null},
-    {"x":3,"y":6,"piece":null},
-    {"x":5,"y":6,"piece":null},
-    {"x":7,"y":6,"piece":null},
-
-    {"x":0,"y":7,"piece":null},
-    {"x":2,"y":7,"piece":null},
-    {"x":4,"y":7,"piece":null},
-    {"x":6,"y":7,"piece":null}
-  ]
-};
-
-const selectedNoJump = {
-  "current_player_number":1,
-  "squares": [
-    {"x":1,"y":0,"piece":null},
-    {"x":3,"y":0,"piece":null},
-    {"x":5,"y":0,"piece":null},
-    {"x":7,"y":0,"piece":null},
-
-    {"x":0,"y":1,"piece":null},
-    {"x":2,"y":1,"piece":null},
-    {"x":4,"y":1,"piece":null},
-    {"x":6,"y":1,"piece":null},
-
-    {"x":1,"y":2,"piece":null},
-    {"x":3,"y":2,"piece":null},
-    {"x":5,"y":2,"piece":null},
-    {"x":7,"y":2,"piece":null},
-
-    {"x":0,"y":3,"piece":null},
-    {"x":2,"y":3,"piece":null},
-    {"x":4,"y":3,"piece":null},
-    {"x":6,"y":3,"piece":{"player_number":1,"direction":1,"king":false}},
-
-    {"x":1,"y":4,"piece":{"player_number":2,"direction":-1,"king":false}},
-    {"x":3,"y":4,"piece":null},
-    {"x":5,"y":4,"piece":null},
-    {"x":7,"y":4,"piece":null},
-
-    {"x":0,"y":5,"piece":null},
-    {"x":2,"y":5,"piece":{"player_number":2,"direction":-1,"king":false}},
-    {"x":4,"y":5,"piece":null},
-    {"x":6,"y":5,"piece":null},
-
-    {"x":1,"y":6,"piece":null},
-    {"x":3,"y":6,"piece":null},
-    {"x":5,"y":6,"piece":null},
-    {"x":7,"y":6,"piece":null},
-
-    {"x":0,"y":7,"piece":null},
-    {"x":2,"y":7,"piece":null},
-    {"x":4,"y":7,"piece":null},
-    {"x":6,"y":7,"piece":null}
-  ]
-};
-
-const possibleJumps = {
-  "current_player_number":1,
-  "squares": [
-    {"x":1,"y":0,"piece":null},
-    {"x":3,"y":0,"piece":null},
-    {"x":5,"y":0,"piece":null},
-    {"x":7,"y":0,"piece":null},
-
-    {"x":0,"y":1,"piece":null},
-    {"x":2,"y":1,"piece":null},
-    {"x":4,"y":1,"piece":null},
-    {"x":6,"y":1,"piece":null},
-
-    {"x":1,"y":2,"piece":null},
-    {"x":3,"y":2,"piece":null},
-    {"x":5,"y":2,"piece":null},
-    {"x":7,"y":2,"piece":null},
-
-    {"x":0,"y":3,"piece":null},
-    {"x":2,"y":3,"piece":null},
-    {"x":4,"y":3,"piece":null},
-    {"x":6,"y":3,"piece":null},
-
-    {"x":1,"y":4,"piece":null},
-    {"x":3,"y":4,"piece":{"player_number":1,"direction":1,"king":false}},
-    {"x":5,"y":4,"piece":null},
-    {"x":7,"y":4,"piece":null},
-
-    {"x":0,"y":5,"piece":null},
-    {"x":2,"y":5,"piece":{"player_number":2,"direction":-1,"king":false}},
-    {"x":4,"y":5,"piece":null},
-    {"x":6,"y":5,"piece":null},
-
-    {"x":1,"y":6,"piece":null},
-    {"x":3,"y":6,"piece":null},
-    {"x":5,"y":6,"piece":null},
-    {"x":7,"y":6,"piece":null},
-
-    {"x":0,"y":7,"piece":null},
-    {"x":2,"y":7,"piece":null},
-    {"x":4,"y":7,"piece":null},
-    {"x":6,"y":7,"piece":null}
-  ]
-};
-
-const possibleMoves = {
-  "current_player_number":1,
-  "squares": [
-    {"x":1,"y":0,"piece":null},
-    {"x":3,"y":0,"piece":null},
-    {"x":5,"y":0,"piece":null},
-    {"x":7,"y":0,"piece":null},
-
-    {"x":0,"y":1,"piece":null},
-    {"x":2,"y":1,"piece":null},
-    {"x":4,"y":1,"piece":null},
-    {"x":6,"y":1,"piece":null},
-
-    {"x":1,"y":2,"piece":null},
-    {"x":3,"y":2,"piece":null},
-    {"x":5,"y":2,"piece":null},
-    {"x":7,"y":2,"piece":null},
-
-    {"x":0,"y":3,"piece":null},
-    {"x":2,"y":3,"piece":null},
-    {"x":4,"y":3,"piece":null},
-    {"x":6,"y":3,"piece":{"player_number":1,"direction":1,"king":false}},
-
-    {"x":1,"y":4,"piece":null},
-    {"x":3,"y":4,"piece":null},
-    {"x":5,"y":4,"piece":null},
-    {"x":7,"y":4,"piece":null},
-
-    {"x":0,"y":5,"piece":null},
-    {"x":2,"y":5,"piece":{"player_number":2,"direction":-1,"king":false}},
-    {"x":4,"y":5,"piece":null},
-    {"x":6,"y":5,"piece":null},
-
-    {"x":1,"y":6,"piece":null},
-    {"x":3,"y":6,"piece":null},
-    {"x":5,"y":6,"piece":null},
-    {"x":7,"y":6,"piece":null},
-
-    {"x":0,"y":7,"piece":null},
-    {"x":2,"y":7,"piece":null},
-    {"x":4,"y":7,"piece":null},
-    {"x":6,"y":7,"piece":null}
-  ]
-};
-
-const noPossibleMoves = {
-  "current_player_number":1,
-  "squares": [
-    {"x":1,"y":0,"piece":null},
-    {"x":3,"y":0,"piece":null},
-    {"x":5,"y":0,"piece":null},
-    {"x":7,"y":0,"piece":null},
-
-    {"x":0,"y":1,"piece":null},
-    {"x":2,"y":1,"piece":null},
-    {"x":4,"y":1,"piece":null},
-    {"x":6,"y":1,"piece":null},
-
-    {"x":1,"y":2,"piece":null},
-    {"x":3,"y":2,"piece":null},
-    {"x":5,"y":2,"piece":null},
-    {"x":7,"y":2,"piece":null},
-
-    {"x":0,"y":3,"piece":{"player_number":1,"direction":1,"king":false}},
-    {"x":2,"y":3,"piece":null},
-    {"x":4,"y":3,"piece":{"player_number":1,"direction":1,"king":false}},
-    {"x":6,"y":3,"piece":null},
-
-    {"x":1,"y":4,"piece":{"player_number":1,"direction":1,"king":false}},
-    {"x":3,"y":4,"piece":{"player_number":1,"direction":1,"king":false}},
-    {"x":5,"y":4,"piece":null},
-    {"x":7,"y":4,"piece":null},
-
-    {"x":0,"y":5,"piece":null},
-    {"x":2,"y":5,"piece":{"player_number":2,"direction":-1,"king":false}},
-    {"x":4,"y":5,"piece":null},
-    {"x":6,"y":5,"piece":{"player_number":2,"direction":-1,"king":false}},
-
-    {"x":1,"y":6,"piece":null},
-    {"x":3,"y":6,"piece":null},
-    {"x":5,"y":6,"piece":null},
-    {"x":7,"y":6,"piece":null},
-
-    {"x":0,"y":7,"piece":null},
-    {"x":2,"y":7,"piece":null},
-    {"x":4,"y":7,"piece":null},
-    {"x":6,"y":7,"piece":null}
-  ]
-};
-
-const noPossibleJumps = {
-  "current_player_number":1,
-  "squares": [
-    {"x":1,"y":0,"piece":null},
-    {"x":3,"y":0,"piece":null},
-    {"x":5,"y":0,"piece":null},
-    {"x":7,"y":0,"piece":null},
-
-    {"x":0,"y":1,"piece":null},
-    {"x":2,"y":1,"piece":null},
-    {"x":4,"y":1,"piece":null},
-    {"x":6,"y":1,"piece":null},
-
-    {"x":1,"y":2,"piece":null},
-    {"x":3,"y":2,"piece":null},
-    {"x":5,"y":2,"piece":null},
-    {"x":7,"y":2,"piece":null},
-
-    {"x":0,"y":3,"piece":null},
-    {"x":2,"y":3,"piece":null},
-    {"x":4,"y":3,"piece":null},
-    {"x":6,"y":3,"piece":{"player_number":1,"direction":1,"king":false}},
-
-    {"x":1,"y":4,"piece":{"player_number":2,"direction":-1,"king":false}},
-    {"x":3,"y":4,"piece":{"player_number":2,"direction":-1,"king":false}},
-    {"x":5,"y":4,"piece":null},
-    {"x":7,"y":4,"piece":null},
-
-    {"x":0,"y":5,"piece":null},
-    {"x":2,"y":5,"piece":{"player_number":2,"direction":-1,"king":false}},
-    {"x":4,"y":5,"piece":null},
-    {"x":6,"y":5,"piece":null},
-
-    {"x":1,"y":6,"piece":null},
-    {"x":3,"y":6,"piece":null},
-    {"x":5,"y":6,"piece":null},
-    {"x":7,"y":6,"piece":{"player_number":2,"direction":-1,"king":false}},
-
-    {"x":0,"y":7,"piece":null},
-    {"x":2,"y":7,"piece":null},
-    {"x":4,"y":7,"piece":null},
-    {"x":6,"y":7,"piece":null}
-  ]
-};
+import fixtures from './fixtures'
 
 describe("Square", () => {
   describe("with a piece", () => {
@@ -388,7 +29,7 @@ describe("Square", () => {
 
   describe("Another piece must jump", () => {
     it("must not be selectable", () => {
-      let squares = new SquareSet(mustJump);
+      let squares = fixtures('mustJumpSquareSet');
       let square = squares.findSquare(6, 5);
       expect(square.selectable(squares)).toBe(false);
     });
@@ -397,7 +38,7 @@ describe("Square", () => {
   describe("No other piece must jump", () => {
     describe("piece has empty square forward", () => {
       it("must be selectable", () => {
-        let squares = new SquareSet(noJump);
+        let squares = fixtures('noJumpSquareSet');
         let square = squares.findSquare(6, 5);
         expect(square.selectable(squares)).toBe(true);
       });
@@ -405,7 +46,7 @@ describe("Square", () => {
 
     describe("piece is blocked", () => {
       it("must not be selectable", () => {
-        let squares = new SquareSet(noJump);
+        let squares = fixtures('noJumpSquareSet');
         let square = squares.findSquare(6, 7);
         expect(square.selectable(squares)).toBe(false);
       });
@@ -413,7 +54,7 @@ describe("Square", () => {
 
     describe("piece has jumpable enemy", () => {
       it("must be selectable", () => {
-        let squares = new SquareSet(mustJump);
+        let squares = fixtures('mustJumpSquareSet');
         let square = squares.findSquare(2, 5);
         expect(square.selectable(squares)).toBe(true);
       });
@@ -423,7 +64,7 @@ describe("Square", () => {
   describe("a selected piece", () => {
     describe("attempting to move to an empty square nearby", () => {
       it("must be actionable", () => {
-        let squares = new SquareSet(selectedNoJump);
+        let squares = fixtures('selectedNoJumpSquareSet');
         let square = squares.findSquare(2, 5);
         let to = squares.findSquare(3, 4);
         expect(square.actionable(square.piece, to, squares)).toBe(true);
@@ -432,7 +73,7 @@ describe("Square", () => {
 
     describe("attempting to jump an enemy piece", () => {
       it("must be actionable", () => {
-        let squares = new SquareSet(selectedMustJump);
+        let squares = fixtures('selectedMustJumpSquareSet');
         let square = squares.findSquare(2, 5);
         let to = squares.findSquare(4, 3);
         expect(square.actionable(square.piece, to, squares)).toBe(true);
@@ -441,7 +82,7 @@ describe("Square", () => {
 
     describe("attempting to move too far", () => {
       it("must not be actionable", () => {
-        let squares = new SquareSet(selectedNoJump);
+        let squares = fixtures('selectedNoJumpSquareSet');
         let square = squares.findSquare(2, 5);
         let to = squares.findSquare(4, 3);
         expect(square.actionable(square.piece, to, squares)).toBe(false);
@@ -450,7 +91,7 @@ describe("Square", () => {
 
     describe("attempting to move the wrong direction", () => {
       it("must not be actionable", () => {
-        let squares = new SquareSet(selectedNoJump);
+        let squares = fixtures('selectedNoJumpSquareSet');
         let square = squares.findSquare(2, 5);
         let to = squares.findSquare(3, 6);
         expect(square.actionable(square.piece, to, squares)).toBe(false);
@@ -459,7 +100,7 @@ describe("Square", () => {
 
     describe("attempting to move to a blocked square", () => {
       it("must not be actionable", () => {
-        let squares = new SquareSet(selectedNoJump);
+        let squares = fixtures('selectedNoJumpSquareSet');
         let square = squares.findSquare(2, 5);
         let to = squares.findSquare(1, 4);
         expect(square.actionable(square.piece, to, squares)).toBe(false);
@@ -469,7 +110,7 @@ describe("Square", () => {
 
   describe("a square with empty squares beside it", () => {
     it("must have some possible moves", () => {
-      let squares = new SquareSet(possibleMoves);
+      let squares = fixtures('possibleMovesSquareSet');
       let square = squares.findSquare(2, 5);
       expect(square.possibleMoves(square.piece, squares).any()).toBe(true);
     });
@@ -477,7 +118,7 @@ describe("Square", () => {
 
   describe("a square with no empty squares beside it", () => {
     it("must not have any possible moves", () => {
-      let squares = new SquareSet(noPossibleMoves);
+      let squares = fixtures('noPossibleMovesSquareSet');
       let square = squares.findSquare(2, 5);
       expect(square.possibleMoves(square.piece, squares).any()).toBe(false);
     });
@@ -485,7 +126,7 @@ describe("Square", () => {
 
   describe("a selected square with enemy pieces nearby with empty squares behind them", () => {
     it("must have possible jumps", () => {
-      let squares = new SquareSet(possibleJumps);
+      let squares = fixtures('possibleJumpsSquareSet');
       let square = squares.findSquare(2, 5);
       expect(square.possibleJumps(square.piece, squares).any()).toBe(true);
     });
@@ -493,7 +134,7 @@ describe("Square", () => {
 
   describe("a selected square with enemy pieces nearby with blocked squares behind them", () => {
     it("must not have possible jumps", () => {
-      let squares = new SquareSet(noPossibleJumps);
+      let squares = fixtures('noPossibleJumpsSquareSet');
       let square = squares.findSquare(2, 5);
       expect(square.possibleJumps(square.piece, squares).any()).toBe(false);
     });
@@ -501,7 +142,7 @@ describe("Square", () => {
 
   describe("a selected square with no enemy pieces nearby", () => {
     it("must not have possible jumps", () => {
-      let squares = new SquareSet(noPossibleJumps);
+      let squares = fixtures('noPossibleJumpsSquareSet');
       let square = squares.findSquare(7, 6);
       expect(square.possibleJumps(square.piece, squares).any()).toBe(false);
     });
@@ -512,6 +153,50 @@ describe("Square", () => {
       let square = new Square({x: 1, y: 1, piece: { player: { number: 1, direction: 1 }, king: false} });
       expect(square.point().x).toEqual(1);
       expect(square.point().y).toEqual(1);
+    });
+  });
+
+  describe('select', () => {
+    describe('with a piece', () => {
+      it('must mark the piece as selected', () => {
+        let square = new Square({id: 1, x: 1, y: 1, piece: { id: 1, player_number: 1, king: false, selected: false }}); 
+        square.select();
+        expect(square.piece.selected).toBe(true);
+      });
+    });
+
+    describe('without a piece', () => {
+      it('must not do anything', () => {
+        let square = new Square({id: 1, x: 1, y: 1, piece: null}); 
+        square.select();
+        expect(square.piece).toBe(null);
+      });
+    }); 
+  });
+
+  describe('deselect', () => {
+    describe('with a piece', () => {
+      it('must mark the piece as not selected', () => {
+        let square = new Square({id: 1, x: 1, y: 1, piece: { id: 1, player_number: 1, king: false, selected: true }}); 
+        square.deselect();
+        expect(square.piece.selected).toBe(false);
+      });
+    });
+
+    describe('without a piece', () => {
+      it('must not do anything', () => {
+        let square = new Square({id: 1, x: 1, y: 1, piece: null}); 
+        square.deselect();
+        expect(square.piece).toBe(null);
+      });
+    });
+  });
+
+  describe('mark', () => {
+    it('must mark the square as selected', () => {
+      let square = new Square({id: 1, x: 1, y: 1, piece: null, marked: false}); 
+      square.mark();
+      expect(square.marked).toBe(true);
     });
   });
 });

@@ -1,5 +1,6 @@
 import SquareSet from './square_set'
 import Move from './move'
+import exists from './exists'
 
 class GameState {
   constructor(args) {
@@ -43,6 +44,26 @@ class GameState {
 
     let move = new Move({from: from, tos: tos, proposedTo: proposedTo, gameState: this});
     return move.complete();
+  }
+
+  // actions
+
+  selectSquare(squareId) {
+    let square = this.findSquareById(squareId);
+    if (exists(square)) {
+      square.select();
+    }
+  }
+
+  deselectSquares() {
+    this.squares.deselectSquares();
+  }
+
+  markSquare(squareId) {
+    let square = this.findSquareById(squareId);
+    if (exists(square)) {
+      square.mark();
+    } 
   }
 };
 

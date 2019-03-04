@@ -50,4 +50,51 @@ describe('GameState', () => {
       expect(gameState.moveComplete(12, [], 16)).toBe(true);
     });
   });
+
+  describe('selectSquare', () => {
+    describe('with a square that exists', () => {
+      it('must mark the square as selected', () => {
+        let gameState = fixtures('game_state');
+        gameState.selectSquare(9);
+        let square = gameState.findSquareById(9);
+        expect(square.piece.selected).toBe(true);
+      });
+    });
+
+    describe('with a square that does not exist', () => {
+      it('must not do anything', () => {
+        let gameState = fixtures('game_state');
+        gameState.selectSquare(33);
+        expect(gameState.selectedSquare()).toBe(undefined);
+      });
+    });
+  });
+
+  describe('deselectSquares', () => {
+    it('must deselect all squares', () => {
+      let gameState = fixtures('selectedSquareGameState');
+      gameState.deselectSquares();
+      expect(gameState.selectedSquare()).toBe(undefined);
+    }); 
+  });
+
+  describe('markSquare', () => {
+    describe('with a square that exists', () => {
+      it('must mark the square', () => {
+        let gameState = fixtures('game_state');
+        gameState.markSquare(13);
+        let square = gameState.findSquareById(13);
+        expect(square.marked).toBe(true);
+      });
+    });
+
+    describe('with a square that does not exist', () => {
+      it('must not do anything', () => {
+        let gameState = fixtures('game_state');
+        gameState.markSquare(33);
+        expect(gameState.squares.filter(function(s) { return s.marked; }).first()).toBe(undefined);
+      });
+    });
+
+  });
 });

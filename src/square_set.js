@@ -174,6 +174,12 @@ class SquareSet {
     }
     return new SquareSet({"squares": squares});
   }
+
+  // actions
+
+  deselectSquares() {
+    this.squares.forEach(function(square) { square.deselect(); });
+  }
 }
 
 export default SquareSet;

@@ -46,4 +46,20 @@ describe('Piece', () => {
       });
     });
   });
+
+  describe('select', () => {
+    it('marks the piece as selected', () => {
+      let piece = new Piece({player_number: 1, selected: false});
+      piece.select();
+      expect(piece.selected).toBe(true);
+    });
+  });
+
+  describe('deselect', () => {
+    it('marks the piece as not selected', () => {
+      let piece = new Piece({player_number: 1, selected: true});
+      piece.deselect();
+      expect(piece.selected).toBe(false);
+    });
+  });
 });

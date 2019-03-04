@@ -8,6 +8,16 @@ class Piece {
   direction() {
     return (this.playerNumber == 1) ? 1 : -1;
   }
+
+  // actions
+
+  select() {
+    this.selected = true;
+  }
+
+  deselect() {
+    this.selected = false;
+  }
 }
 
 export default Piece;

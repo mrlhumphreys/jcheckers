@@ -12,10 +12,6 @@ class Square {
     this.marked = false;
   }
 
-  mark() {
-    this.marked = true;
-  }
-
   player() {
     return exists(this.piece) ? this.piece.player : null;
   }
@@ -59,6 +55,24 @@ class Square {
 
   point() {
     return new Point(this.x, this.y);
+  }
+
+  // actions
+
+  select() {
+    if (exists(this.piece)) {
+      this.piece.select();
+    } 
+  }
+
+  deselect() {
+    if (exists(this.piece)) {
+      this.piece.deselect();
+    }
+  }
+
+  mark() {
+    this.marked = true;
   }
 }
 

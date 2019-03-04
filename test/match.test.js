@@ -84,4 +84,58 @@ describe("Match", () => {
       expect(match.moveComplete(12, [], 16)).toBe(true);
     });
   });
+
+  describe('selectSquare', () => {
+    it('must select the square', () => {
+      let match = fixtures('match');
+      match.selectSquare(9);
+      let square = match.findSquareById(9);
+      expect(square.piece.selected).toBe(true);
+    });
+  });
+
+  describe('deselectSquares', () => {
+    it('must deselect squares', () => {
+      let match = fixtures('selectedSquareMatch');
+      match.deselectSquares();
+      expect(match.selectedSquare()).toBe(undefined);
+    });
+  });
+
+  describe('markSquare', () => {
+    it('must mark the square', () => {
+      let match = fixtures('match');
+      match.markSquare(13);
+      let square = match.findSquareById(13);
+      expect(square.marked).toBe(true);
+    });
+  });
+
+  describe('addFromToCurrentMove', () => {
+    it('must set currentMoveFromId', () => {
+      let match = fixtures('match');
+      match.addFromToCurrentMove(12);
+      expect(match.currentMoveFromId).toEqual(12);
+    });
+  });
+
+  describe('addToToCurrentMove', () => {
+    it('must push to currentMoveToIds', () => {
+      let match = fixtures('match');
+      match.addToToCurrentMove(16);
+      expect(match.currentMoveToIds).toEqual([16]); 
+    });
+  });
+
+  describe('clearMove', () => {
+    it('must set move attributes to null/empty', () => {
+      let match = fixtures('match', {
+        currentMoveFromId: 12,
+        currentMoveToIds: [16]
+      });
+      match.clearMove();
+      expect(match.currentMoveFromId).toBe(null);
+      expect(match.currentMoveToIds).toEqual([]);
+    });
+  });
 });
