@@ -4,6 +4,7 @@ import Square from './square';
 
 class SquareSet {
   constructor(args) {
+    this.constructorName = 'SquareSet';
     this.squares = args.squares.map(function(s) {
       return (s.constructorName == 'Square') ? s : new Square(s);
     });

@@ -95,6 +95,88 @@ describe('GameState', () => {
         expect(gameState.squares.filter(function(s) { return s.marked; }).first()).toBe(undefined);
       });
     });
+  });
 
+  describe('movePieces', () => {
+    describe('with a move', () => {
+      it('moves the piece', () => {
+        let gameState = fixtures('selectedSquareGameState');
+        let fromId = 12;
+        let toId = 16;
+
+        gameState.movePieces(fromId, toId);
+
+        let from = gameState.findSquareById(fromId);
+        let to = gameState.findSquareById(toId);
+
+        expect(from.piece).toBe(null);
+        expect(to.piece).not.toBe(null);
+      });
+    });
+
+    describe('with a jump', () => {
+      it('moves the piece', () => {
+        let gameState = fixtures('jumpGameState');
+        let fromId = 1;
+        let toId = 10;
+
+        gameState.movePieces(fromId, toId);
+
+        let from = gameState.findSquareById(fromId);
+        let to = gameState.findSquareById(toId);
+
+        expect(from.piece).toBe(null);
+        expect(to.piece).not.toBe(null);
+      });
+
+      it('removes the jumped over piece', () => {
+        let gameState = fixtures('jumpGameState');
+        let fromId = 1;
+        let betweenId = 6;
+        let toId = 10;
+
+        gameState.movePieces(fromId, toId);
+
+        let between = gameState.findSquareById(betweenId);
+
+        expect(between.piece).toBe(null);
+      });
+    });
+
+    describe('with a double jump', () => {
+      it('moves the piece to the end', () => {
+        let gameState = fixtures('doubleJumpGameState');
+        let fromId = 1;
+        let midToId = 10
+        let lastToId = 19;
+        let toIds = [midToId, lastToId];
+
+        gameState.movePieces(fromId, toIds);
+
+        let from = gameState.findSquareById(fromId);
+        let lastTo = gameState.findSquareById(lastToId);
+
+        expect(from.piece).toBe(null);
+        expect(lastTo.piece).not.toBe(null);
+      });
+
+      it('removes all the jumped over pieces', () => {
+        let gameState = fixtures('doubleJumpGameState');
+        let fromId = 1;
+        let firstBetweenId = 6;
+        let midToId = 10
+        let secondBetweenId = 15;
+        let lastToId = 19;
+        let toIds = [midToId, lastToId];
+
+        gameState.movePieces(fromId, toIds);
+
+        let firstBetween = gameState.findSquareById(firstBetweenId);
+        let secondBetween = gameState.findSquareById(secondBetweenId);
+
+        expect(firstBetween.piece).toBe(null);
+        expect(secondBetween.piece).toBe(null);
+      });
+    });
   });
 });

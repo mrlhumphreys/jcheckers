@@ -7,8 +7,9 @@ class Match {
     this.gameState = new GameState(args.game_state);
     this.players = args.players;
     this.winner = args.winner;
-    this.currentMoveFromId = exists(args.currentMoveFromId) ? args.currentMoveFromId : null;
-    this.currentMoveToIds = exists(args.currentMoveToIds) ? args.currentMoveToIds : [];
+    this.currentMoveFromId = exists(args.current_move_from_id) ? args.current_move_from_id : null;
+    this.currentMoveToIds = exists(args.current_move_to_ids) ? args.current_move_to_ids : [];
+    this.lastAction = null;
   }
 
   squares() {
@@ -83,6 +84,70 @@ class Match {
   clearMove() {
     this.currentMoveFromId = null;
     this.currentMoveToIds = [];
+  }
+
+  notify(message) {
+    this.lastAction = { kind: 'notification', data: { message: message }};
+  }
+
+  movePieces(fromId, toIds) {
+    this.gameState.movePieces(fromId, toIds);
+  }
+
+  addMoveToLastAction(fromId, toIds) {
+    this.lastAction = { kind: 'move', data: { fromId: fromId, toIds: toIds }};
+  }
+
+  // external actions
+
+  touchSquare(squareId, playerNumber) { 
+    let selectedSquare = this.selectedSquare();
+    let touchedSquare = this.findSquareById(squareId);
+
+    if (exists(this.winner)) {
+      this.notify('Game is over.');
+    } else if (!this.playersTurn(playerNumber)) {
+      this.notify('It is not your turn.');
+    } else {
+      if (exists(selectedSquare)) {
+        if (this.moveValid(this.currentMoveFromId, this.currentMoveToIds, touchedSquare.id)) {
+          if (this.moveComplete(this.currentMoveFromId, this.currentMoveToIds, touchedSquare.id)) {
+            let fromId = selectedSquare.id
+            let toIds = this.currentMoveToIds.concat([touchedSquare.id])
+            this.movePieces(fromId, toIds);
+            this.clearMove();
+            this.deselectSquares();
+            this.addMoveToLastAction(fromId, toIds);
+          } else {
+            this.markSquare(touchedSquare.id);
+            this.addToToCurrentMove(touchedSquare.id);
+            this.notify('Piece can continue to jump.');
+          }
+        } else {
+          this.clearMove();
+          this.deselectSquares();
+          this.notify('Move is not valid.');
+        }
+      } else {
+        if (exists(touchedSquare.piece)) {
+          if (touchedSquare.piece.playerNumber == playerNumber) {
+            if (this.movePossible(touchedSquare.id)) {
+              this.selectSquare(touchedSquare.id);
+              this.addFromToCurrentMove(touchedSquare.id);
+            } else {
+              this.clearMove();
+              this.notify('That piece cannot move.');
+            }
+          } else {
+            this.clearMove();
+            this.notify('That piece is not yours.');
+          }
+        } else {
+          this.clearMove();
+          this.notify('That square is empty.');
+        }
+      }
+    }
   }
 }
 

@@ -1,6 +1,7 @@
+import eachCons from './each_cons'
+import exists from './exists'
 import SquareSet from './square_set'
 import Move from './move'
-import exists from './exists'
 
 class GameState {
   constructor(args) {
@@ -64,6 +65,30 @@ class GameState {
     if (exists(square)) {
       square.mark();
     } 
+  }
+
+  movePieces(fromId, toIds) {
+    let from = this.findSquareById(fromId);
+    let tos = this.findSquareById(toIds);
+    let piece = from.piece; 
+    let legs = [];
+
+    if (tos.constructorName == "SquareSet") {
+      tos.last().piece = piece;
+      legs = [from].concat(tos.squares);
+    } else {
+      tos.piece = piece;
+      legs = [from].concat(tos);
+    }
+
+    from.piece = null;
+
+    eachCons(legs,2).forEach((leg) => {
+      let between = this.squares.between(leg[0], leg[1]).first(); 
+      if (exists(between)) {
+        between.piece = null;
+      }
+    });
   }
 };
 
