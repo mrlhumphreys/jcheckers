@@ -8,8 +8,19 @@ class Square {
     this.id = args.id;
     this.x = args.x;
     this.y = args.y;
-    this.piece = exists(args.piece) ? new Piece(args.piece) : null;
     this.marked = false;
+    this.piece = exists(args.piece) ? new Piece(args.piece) : null;
+  }
+
+  asJson() {
+    let pieceJson = exists(this.piece) ? this.piece.asJson() : null;
+    return {
+      id: this.id,
+      x: this.x,
+      y: this.y,
+      marked: this.marked,
+      piece: pieceJson 
+    };
   }
 
   player() {

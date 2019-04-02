@@ -9,6 +9,13 @@ class GameState {
     this.squares = new SquareSet({"squares": args.squares});
   }
 
+  asJson() {
+    return {
+      current_player_number: this.currentPlayerNumber,
+      squares: this.squares.asJson().squares 
+    };
+  }
+
   selectedSquare() {
     return this.squares.selectedSquare();
   }

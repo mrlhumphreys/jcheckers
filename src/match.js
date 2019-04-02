@@ -9,7 +9,19 @@ class Match {
     this.winner = args.winner;
     this.currentMoveFromId = exists(args.current_move_from_id) ? args.current_move_from_id : null;
     this.currentMoveToIds = exists(args.current_move_to_ids) ? args.current_move_to_ids : [];
-    this.lastAction = null;
+    this.lastAction = exists(args.last_action) ? args.last_action : null;
+  }
+
+  asJson() {
+    return {
+      id: this.id,
+      game_state: this.gameState.asJson(),
+      players: this.players,
+      winner: this.winner,
+      current_move_from_id: this.currentMoveFromId,
+      current_move_to_ids: this.currentMoveToIds,
+      last_action: this.lastAction
+    };
   }
 
   squares() {

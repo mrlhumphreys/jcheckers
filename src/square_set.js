@@ -10,6 +10,12 @@ class SquareSet {
     });
   }
 
+  asJson() {
+    return {
+      squares: this.squares.map(function(square) { return square.asJson(); })
+    };
+  }
+
   findSquareById(id) {
     if (id.constructor.name == "Array") {
       let _squares = id.map((i) => {

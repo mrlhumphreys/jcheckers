@@ -4,30 +4,37 @@ describe('Piece', () => {
   describe('initialize', () => {
     describe('with king', () => {
       it('should set king to true', () => {
-        let piece = new Piece({player_number: 1, king: true});
+        let piece = new Piece({id: 1, player_number: 1, king: true});
         expect(piece.king).toBe(true);
       });
     });  
 
     describe('without king', () => {
       it('should set king to false', () => {
-        let piece = new Piece({player_number: 1});
+        let piece = new Piece({id: 1, player_number: 1});
         expect(piece.king).toBe(false);
       });
     });
 
     describe('with selected', () => {
       it('should set selected to true', () => {
-        let piece = new Piece({player_number: 1, selected: true});
+        let piece = new Piece({id: 1, player_number: 1, selected: true});
         expect(piece.selected).toBe(true);
       });
     });
 
     describe('without selected', () => {
       it('should set selected to false', () => {
-        let piece = new Piece({player_number: 1});
+        let piece = new Piece({id: 1, player_number: 1});
         expect(piece.selected).toBe(false);
       });
+    });
+  });
+
+  describe('asJson', () => {
+    it('must return the square as json', () => {
+      let piece = new Piece({ id: 1, player_number: 1, king: false, selected: false });
+      expect(piece.asJson()).toEqual({ id: 1, player_number: 1, king: false, selected: false });
     });
   });
 

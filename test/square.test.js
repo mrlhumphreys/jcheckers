@@ -3,14 +3,42 @@ import SquareSet from '../src/square_set'
 import fixtures from './fixtures'
 
 describe("Square", () => {
+  describe('asJson', () => {
+    it('must return the square as json', () => {
+      let square = new Square({id: 1, x: 1, y: 1, piece: { player_number: 1 } });
+      expect(square.asJson()).toEqual({ 
+        id: 1, 
+        x: 1, 
+        y: 1, 
+        marked: false, 
+        piece: { 
+          player_number: 1, 
+          king: false, 
+          selected: false 
+        } 
+      });
+    });
+
+    it('must return null for the piece if piece is null', () => {
+      let square = new Square({id: 1, x: 1, y: 1, piece: null });
+      expect(square.asJson()).toEqual({ 
+        id: 1, 
+        x: 1, 
+        y: 1, 
+        marked: false, 
+        piece: null
+      });
+    });
+  });
+
   describe("with a piece", () => {
     it("must have the same player as the piece", () => {
-      let square = new Square({x: 1, y: 1, piece: { player: { number: 1, direction: 1 }, king: false} });
+      let square = new Square({x: 1, y: 1, piece: { player_number: 1, king: false } });
       expect(square.player()).toEqual(square.piece.player);
     });
 
     it("must not be occupied", () => {
-      let square = new Square({x: 1, y: 1, piece: { player: { number: 1, direction: 1 }, king: false} });
+      let square = new Square({x: 1, y: 1, piece: { player_number: 1, king: false } });
       expect(square.unoccupied()).toBe(false);
     });
   });

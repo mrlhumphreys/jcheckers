@@ -4,7 +4,7 @@ import fixtures from './fixtures'
 describe('Move', () => {
   describe('possible', () => { 
     it("returns true if the square is selectable", () => {
-      let gameState = fixtures('game_state');
+      let gameState = fixtures('gameState');
       let from = gameState.findSquareById(12);      
       let move = new Move({from: from, gameState: gameState});
       expect(move.possible()).toBe(true);
@@ -12,7 +12,7 @@ describe('Move', () => {
     });
 
     it("returns false if the square is not selectable", () => {
-      let gameState = fixtures('game_state');
+      let gameState = fixtures('gameState');
       let from = gameState.findSquareById(5);      
       let move = new Move({from: from, gameState: gameState});
       expect(move.possible()).toBe(false);
@@ -22,7 +22,7 @@ describe('Move', () => {
 
   describe('valid', () => { 
     it("returns true if the piece can move", () => {
-      let gameState = fixtures('game_state');
+      let gameState = fixtures('gameState');
       let from = gameState.findSquareById(12);
       let tos = gameState.findSquareById([]);
       let proposedTo = gameState.findSquareById(16);
@@ -32,7 +32,7 @@ describe('Move', () => {
     });
 
     it("returns false if the piece cannot move", () => {
-      let gameState = fixtures('game_state');
+      let gameState = fixtures('gameState');
       let from = gameState.findSquareById(5);
       let tos = gameState.findSquareById([]);
       let proposedTo = gameState.findSquareById(9);
@@ -45,7 +45,7 @@ describe('Move', () => {
 
   describe('complete', () => { 
     it("returns true if a move", () => {
-      let gameState = fixtures('game_state');
+      let gameState = fixtures('gameState');
       let from = gameState.findSquareById(12);
       let tos = gameState.findSquareById([]);
       let proposedTo = gameState.findSquareById(16);
@@ -62,7 +62,7 @@ describe('Move', () => {
         { id: 14, x: 2, y: 3, piece: { id: 14, player_number: 2, king: false }},
         { id: 17, x: 1, y: 4, piece: null}
       ];
-      let gameState = fixtures('game_state', {squares: squares});
+      let gameState = fixtures('gameState', {squares: squares});
       let from = gameState.findSquareById(1);
       let tos = gameState.findSquareById([]);
       let proposedTo = gameState.findSquareById(10);
@@ -78,7 +78,7 @@ describe('Move', () => {
         { id: 14, x: 2, y: 3, piece: { id: 14, player_number: 2, king: false }},
         { id: 17, x: 1, y: 4, piece: null}
       ];
-      let gameState = fixtures('game_state', { squares: squares });
+      let gameState = fixtures('gameState', { squares: squares });
       let from = gameState.findSquareById(1);
       let tos = gameState.findSquareById([10]);
       let proposedTo = gameState.findSquareById(17);
