@@ -11,7 +11,7 @@ class Point {
   }
 
   eq(point) {
-    return (this.x == point.x) && (this.y == point.y);
+    return (this.x === point.x) && (this.y === point.y);
   }
 
   notEq(point) {

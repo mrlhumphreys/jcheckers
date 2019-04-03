@@ -53,11 +53,11 @@ class Move {
   }
 
   _moveType(leg) {
-    return leg.distance() == 1;
+    return leg.distance() === 1;
   }
 
   _jumpType(leg) {
-    return leg.distance() == 2;
+    return leg.distance() === 2;
   }
 
   _lastLegEnd(piece, lastSquare, toSquares) {

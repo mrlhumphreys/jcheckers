@@ -61,7 +61,7 @@ class Square {
   }
 
   unoccupied() {
-    return this.piece == null;
+    return this.piece === null;
   }
 
   point() {

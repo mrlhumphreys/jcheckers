@@ -6,7 +6,7 @@ class SquareSet {
   constructor(args) {
     this.constructorName = 'SquareSet';
     this.squares = args.squares.map(function(s) {
-      return (s.constructorName == 'Square') ? s : new Square(s);
+      return (s.constructorName === 'Square') ? s : new Square(s);
     });
   }
 
@@ -17,21 +17,21 @@ class SquareSet {
   }
 
   findSquareById(id) {
-    if (id.constructor.name == "Array") {
+    if (id.constructor.name === "Array") {
       let _squares = id.map((i) => {
         return this.findSquareById(i);
       });
       return new SquareSet({"squares": _squares});
     } else {
       return this.filter(function(s) {
-        return s.id == id;
+        return s.id === id;
       }).first();
     }
   }
 
   findSquare(x, y) {
     return this.squares.filter(function(s) {
-      return (s.x == x) && (s.y == y);
+      return (s.x === x) && (s.y === y);
     })[0];
   }
 
@@ -63,7 +63,7 @@ class SquareSet {
     let _squares = this.squares.filter(function(a) {
       return squareSet.squares.filter(function(b) {
         return a.point().eq(b.point());
-      }).length == 0
+      }).length === 0
     });
     return new SquareSet({"squares": _squares});
   }
@@ -85,7 +85,7 @@ class SquareSet {
   }
 
   empty() {
-    return this.squares.length == 0;
+    return this.squares.length === 0;
   }
 
   filter(callback) {
@@ -109,7 +109,7 @@ class SquareSet {
 
   occupiedBy(playerNumber) {
     let squares = this.squares.filter(function(s) {
-      return exists(s.piece) && (s.piece.playerNumber == playerNumber);
+      return exists(s.piece) && (s.piece.playerNumber === playerNumber);
     });
     return new SquareSet({"squares": squares});
   }
@@ -117,7 +117,7 @@ class SquareSet {
   twoSquaresAwayFrom(from) {
     let squares = this.squares.filter(function(s) {
       let vector = new Vector(s, from);
-      return vector.distance() == 2;
+      return vector.distance() === 2;
     });
     return new SquareSet({"squares": squares});
   }
@@ -125,7 +125,7 @@ class SquareSet {
   oneSquareAwayFrom(from) {
     let squares = this.squares.filter(function(s) {
       let vector = new Vector(s, from);
-      return vector.distance() == 1;
+      return vector.distance() === 1;
     });
     return new SquareSet({"squares": squares});
   }
@@ -136,7 +136,7 @@ class SquareSet {
         if (piece.king) {
           return true;
         } else {
-          return (new Vector(from, s)).directionY() == piece.direction();
+          return (new Vector(from, s)).directionY() === piece.direction();
         }
       } else {
         return false;

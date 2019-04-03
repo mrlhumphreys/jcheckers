@@ -16,7 +16,7 @@ class Piece {
   }
 
   direction() {
-    return (this.playerNumber == 1) ? 1 : -1;
+    return (this.playerNumber === 1) ? 1 : -1;
   }
 
   // actions

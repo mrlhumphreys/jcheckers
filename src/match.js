@@ -142,7 +142,7 @@ class Match {
         }
       } else {
         if (exists(touchedSquare.piece)) {
-          if (touchedSquare.piece.playerNumber == playerNumber) {
+          if (touchedSquare.piece.playerNumber === playerNumber) {
             if (this.movePossible(touchedSquare.id)) {
               this.selectSquare(touchedSquare.id);
               this.addFromToCurrentMove(touchedSquare.id);

@@ -25,7 +25,7 @@ class GameState {
   }
 
   playersTurn(playerNumber) {
-    return (this.currentPlayerNumber == playerNumber);
+    return (this.currentPlayerNumber === playerNumber);
   }
 
   // move calculations
@@ -80,7 +80,7 @@ class GameState {
     let piece = from.piece; 
     let legs = [];
 
-    if (tos.constructorName == "SquareSet") {
+    if (tos.constructorName === "SquareSet") {
       tos.last().piece = piece;
       legs = [from].concat(tos.squares);
     } else {
