@@ -24,39 +24,6 @@ class Match {
     };
   }
 
-  squares() {
-    return this.gameState.squares;
-  }
-
-  selectedSquare() {
-    return this.gameState.selectedSquare();
-  }
-
-  findSquareById(id) {
-    return this.gameState.findSquareById(id);
-  }
-
-  playersTurn(playerNumber) {
-    return this.gameState.playersTurn(playerNumber);
-  }
-
-  playersName(number) {
-    let index = number - 1;
-    return this.players[index].name;
-  }
-
-  currentPlayerName() {
-    return this.playersName(this.gameState.currentPlayerNumber);
-  }
-
-  winnerName() {
-    if (exists(this.winner)) {
-      return this.playersName(this.winner);
-    } else {
-      return null;
-    }
-  }
-
   // move calculations
 
   movePossible(fromId) {
@@ -71,95 +38,79 @@ class Match {
     return this.gameState.moveComplete(fromId, toIds, proposedToId);
   }
 
-  // actions
-
-  selectSquare(squareId) {
-    this.gameState.selectSquare(squareId); 
-  }
-
-  deselectSquares() {
-    this.gameState.deselectSquares();
-  }
-
-  markSquare(squareId) {
-    this.gameState.markSquare(squareId);
-  } 
-
-  addFromToCurrentMove(squareId) {
-    this.currentMoveFromId = squareId;
-  }
-
-  addToToCurrentMove(squareId) {
-    this.currentMoveToIds.push(squareId);
-  }
-
-  clearMove() {
-    this.currentMoveFromId = null;
-    this.currentMoveToIds = [];
-  }
-
-  notify(message) {
-    this.lastAction = { kind: 'notification', data: { message: message }};
-  }
-
-  movePieces(fromId, toIds) {
-    this.gameState.movePieces(fromId, toIds);
-  }
-
-  addMoveToLastAction(fromId, toIds) {
-    this.lastAction = { kind: 'move', data: { fromId: fromId, toIds: toIds }};
-  }
-
   // external actions
 
   touchSquare(squareId, playerNumber) { 
-    let selectedSquare = this.selectedSquare();
-    let touchedSquare = this.findSquareById(squareId);
+    let selectedSquare = this.gameState.selectedSquare();
+    let touchedSquare = this.gameState.findSquareById(squareId);
 
     if (exists(this.winner)) {
-      this.notify('Game is over.');
-    } else if (!this.playersTurn(playerNumber)) {
-      this.notify('It is not your turn.');
+      this._notify('Game is over.');
+    } else if (!this.gameState.playersTurn(playerNumber)) {
+      this._notify('It is not your turn.');
     } else {
       if (exists(selectedSquare)) {
         if (this.moveValid(this.currentMoveFromId, this.currentMoveToIds, touchedSquare.id)) {
           if (this.moveComplete(this.currentMoveFromId, this.currentMoveToIds, touchedSquare.id)) {
             let fromId = selectedSquare.id
             let toIds = this.currentMoveToIds.concat([touchedSquare.id])
-            this.movePieces(fromId, toIds);
-            this.clearMove();
-            this.deselectSquares();
-            this.addMoveToLastAction(fromId, toIds);
+            this.gameState.movePieces(fromId, toIds);
+            this._clearMove();
+            this.gameState.deselectSquares();
+            this._addMoveToLastAction(fromId, toIds);
           } else {
-            this.markSquare(touchedSquare.id);
-            this.addToToCurrentMove(touchedSquare.id);
-            this.notify('Piece can continue to jump.');
+            this.gameState.markSquare(touchedSquare.id);
+            this._addToToCurrentMove(touchedSquare.id);
+            this._notify('Piece can continue to jump.');
           }
         } else {
-          this.clearMove();
-          this.deselectSquares();
-          this.notify('Move is not valid.');
+          this._clearMove();
+          this.gameState.deselectSquares();
+          this._notify('Move is not valid.');
         }
       } else {
         if (exists(touchedSquare.piece)) {
           if (touchedSquare.piece.playerNumber === playerNumber) {
             if (this.movePossible(touchedSquare.id)) {
-              this.selectSquare(touchedSquare.id);
-              this.addFromToCurrentMove(touchedSquare.id);
+              this.gameState.selectSquare(touchedSquare.id);
+              this._addFromToCurrentMove(touchedSquare.id);
             } else {
-              this.clearMove();
-              this.notify('That piece cannot move.');
+              this._clearMove();
+              this._notify('That piece cannot move.');
             }
           } else {
-            this.clearMove();
-            this.notify('That piece is not yours.');
+            this._clearMove();
+            this._notify('That piece is not yours.');
           }
         } else {
-          this.clearMove();
-          this.notify('That square is empty.');
+          this._clearMove();
+          this._notify('That square is empty.');
         }
       }
     }
+  }
+
+  // private setters
+
+  _addFromToCurrentMove(squareId) {
+    this.currentMoveFromId = squareId;
+  }
+
+  _addToToCurrentMove(squareId) {
+    this.currentMoveToIds.push(squareId);
+  }
+
+  _clearMove() {
+    this.currentMoveFromId = null;
+    this.currentMoveToIds = [];
+  }
+
+  _notify(message) {
+    this.lastAction = { kind: 'notification', data: { message: message }};
+  }
+
+  _addMoveToLastAction(fromId, toIds) {
+    this.lastAction = { kind: 'move', data: { fromId: fromId, toIds: toIds }};
   }
 }
 
