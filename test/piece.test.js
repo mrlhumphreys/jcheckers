@@ -34,7 +34,7 @@ describe('Piece', () => {
   describe('asJson', () => {
     it('must return the square as json', () => {
       let piece = new Piece({ id: 1, player_number: 1, king: false, selected: false });
-      expect(piece.asJson()).toEqual({ id: 1, player_number: 1, king: false, selected: false });
+      expect(piece.asJson).toEqual({ id: 1, player_number: 1, king: false, selected: false });
     });
   });
 
@@ -42,14 +42,14 @@ describe('Piece', () => {
     describe('for player 1', () => {
       it('should be positive', () => {
         let piece = new Piece({player_number: 1});
-        expect(piece.direction()).toEqual(1);
+        expect(piece.direction).toEqual(1);
       });
     });
 
     describe('for player 2', () => {
       it('should be negative', () => {
         let piece = new Piece({player_number: 2});
-        expect(piece.direction()).toEqual(-1);
+        expect(piece.direction).toEqual(-1);
       });
     });
   });

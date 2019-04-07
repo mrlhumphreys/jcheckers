@@ -4,7 +4,7 @@ describe('GameState', () => {
   describe('asJson', () => {
     it('must return the game state as json', () => {
       let gameState = fixtures('gameState');
-      expect(gameState.asJson()).toEqual({
+      expect(gameState.asJson).toEqual({
         current_player_number: 1,
         squares: [
           { id: 1, x: 1, y: 0, marked: false, piece: { id: 1, player_number: 1, king: false, selected: false }},
@@ -54,8 +54,8 @@ describe('GameState', () => {
   describe('selectedSquare', () => {
     it('returns the selected square', () => {
       let gameState = fixtures('gameState');
-      let square = gameState.squares.selectedSquare(); 
-      expect(gameState.selectedSquare()).toEqual(square);
+      let square = gameState.squares.selectedSquare; 
+      expect(gameState.selectedSquare).toEqual(square);
     });
   });
 
@@ -115,7 +115,7 @@ describe('GameState', () => {
       it('must not do anything', () => {
         let gameState = fixtures('gameState');
         gameState.selectSquare(33);
-        expect(gameState.selectedSquare()).toBe(undefined);
+        expect(gameState.selectedSquare).toBe(undefined);
       });
     });
   });
@@ -124,7 +124,7 @@ describe('GameState', () => {
     it('must deselect all squares', () => {
       let gameState = fixtures('selectedSquareGameState');
       gameState.deselectSquares();
-      expect(gameState.selectedSquare()).toBe(undefined);
+      expect(gameState.selectedSquare).toBe(undefined);
     }); 
   });
 
@@ -142,7 +142,7 @@ describe('GameState', () => {
       it('must not do anything', () => {
         let gameState = fixtures('gameState');
         gameState.markSquare(33);
-        expect(gameState.squares.filter(function(s) { return s.marked; }).first()).toBe(undefined);
+        expect(gameState.squares.filter(function(s) { return s.marked; }).first).toBe(undefined);
       });
     });
   });

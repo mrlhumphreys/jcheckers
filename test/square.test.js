@@ -6,7 +6,7 @@ describe("Square", () => {
   describe('asJson', () => {
     it('must return the square as json', () => {
       let square = new Square({id: 1, x: 1, y: 1, piece: { player_number: 1 } });
-      expect(square.asJson()).toEqual({ 
+      expect(square.asJson).toEqual({ 
         id: 1, 
         x: 1, 
         y: 1, 
@@ -21,7 +21,7 @@ describe("Square", () => {
 
     it('must return null for the piece if piece is null', () => {
       let square = new Square({id: 1, x: 1, y: 1, piece: null });
-      expect(square.asJson()).toEqual({ 
+      expect(square.asJson).toEqual({ 
         id: 1, 
         x: 1, 
         y: 1, 
@@ -34,24 +34,24 @@ describe("Square", () => {
   describe("with a piece", () => {
     it("must have the same player as the piece", () => {
       let square = new Square({x: 1, y: 1, piece: { player_number: 1, king: false } });
-      expect(square.player()).toEqual(square.piece.player);
+      expect(square.player).toEqual(square.piece.player);
     });
 
     it("must not be occupied", () => {
       let square = new Square({x: 1, y: 1, piece: { player_number: 1, king: false } });
-      expect(square.unoccupied()).toBe(false);
+      expect(square.unoccupied).toBe(false);
     });
   });
 
   describe("without a piece", () => {
     it("must have a null player", () => {
       let square = new Square({x: 1, y: 1, piece: null });
-      expect(square.player()).toBe(null);
+      expect(square.player).toBe(null);
     });
 
     it("must not be occupied", () => {
       let square = new Square({x: 1, y: 1, piece: null });
-      expect(square.unoccupied()).toBe(true);
+      expect(square.unoccupied).toBe(true);
     });
   });
 
@@ -140,7 +140,7 @@ describe("Square", () => {
     it("must have some possible moves", () => {
       let squares = fixtures('possibleMovesSquareSet');
       let square = squares.findSquare(2, 5);
-      expect(square.possibleMoves(square.piece, squares).any()).toBe(true);
+      expect(square.possibleMoves(square.piece, squares).any).toBe(true);
     });
   });
 
@@ -148,7 +148,7 @@ describe("Square", () => {
     it("must not have any possible moves", () => {
       let squares = fixtures('noPossibleMovesSquareSet');
       let square = squares.findSquare(2, 5);
-      expect(square.possibleMoves(square.piece, squares).any()).toBe(false);
+      expect(square.possibleMoves(square.piece, squares).any).toBe(false);
     });
   });
 
@@ -156,7 +156,7 @@ describe("Square", () => {
     it("must have possible jumps", () => {
       let squares = fixtures('possibleJumpsSquareSet');
       let square = squares.findSquare(2, 5);
-      expect(square.possibleJumps(square.piece, squares).any()).toBe(true);
+      expect(square.possibleJumps(square.piece, squares).any).toBe(true);
     });
   });
 
@@ -164,7 +164,7 @@ describe("Square", () => {
     it("must not have possible jumps", () => {
       let squares = fixtures('noPossibleJumpsSquareSet');
       let square = squares.findSquare(2, 5);
-      expect(square.possibleJumps(square.piece, squares).any()).toBe(false);
+      expect(square.possibleJumps(square.piece, squares).any).toBe(false);
     });
   });
 
@@ -172,15 +172,15 @@ describe("Square", () => {
     it("must not have possible jumps", () => {
       let squares = fixtures('noPossibleJumpsSquareSet');
       let square = squares.findSquare(7, 6);
-      expect(square.possibleJumps(square.piece, squares).any()).toBe(false);
+      expect(square.possibleJumps(square.piece, squares).any).toBe(false);
     });
   });
 
   describe("point", () => {
     it("must have coordinates equal to the square", () => {
       let square = new Square({x: 1, y: 1, piece: { player: { number: 1, direction: 1 }, king: false} });
-      expect(square.point().x).toEqual(1);
-      expect(square.point().y).toEqual(1);
+      expect(square.point.x).toEqual(1);
+      expect(square.point.y).toEqual(1);
     });
   });
 

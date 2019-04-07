@@ -10,9 +10,9 @@ class SquareSet {
     });
   }
 
-  asJson() {
+  get asJson() {
     return {
-      squares: this.squares.map(function(square) { return square.asJson(); })
+      squares: this.squares.map(function(square) { return square.asJson; })
     };
   }
 
@@ -25,7 +25,7 @@ class SquareSet {
     } else {
       return this.filter(function(s) {
         return s.id === id;
-      }).first();
+      }).first;
     }
   }
 
@@ -35,7 +35,7 @@ class SquareSet {
     })[0];
   }
 
-  selectedSquare() {
+  get selectedSquare() {
     return this.squares.filter(function(s) {
       return (exists(s.piece) && s.piece.selected);
     })[0];
@@ -45,7 +45,7 @@ class SquareSet {
     this.squares.push(square);
   }
 
-  length() {
+  get length() {
     return this.squares.length;
   }
 
@@ -55,36 +55,36 @@ class SquareSet {
 
   include(square) {
     return exists(square) && this.squares.some(function(s) {
-      return square.point().eq(s.point());
+      return square.point.eq(s.point);
     });
   }
 
   difference(squareSet) {
     let _squares = this.squares.filter(function(a) {
       return squareSet.squares.filter(function(b) {
-        return a.point().eq(b.point());
+        return a.point.eq(b.point);
       }).length === 0
     });
     return new SquareSet({"squares": _squares});
   }
 
-  first() {
+  get first() {
     return this.squares[0];
   }
 
-  last() {
+  get last() {
     return this.squares.slice(-1)[0];
   }
 
-  many() {
+  get many() {
     return this.squares.length > 1;
   }
 
-  any() {
+  get any() {
     return (this.squares.length > 0);
   }
 
-  empty() {
+  get empty() {
     return this.squares.length === 0;
   }
 
@@ -95,7 +95,7 @@ class SquareSet {
 
   allPossibleJumps(squares) {
     let _squares = this.squares.filter((s) => {
-      return s.possibleJumps(s.piece, squares).any();
+      return s.possibleJumps(s.piece, squares).any;
     });
     return new SquareSet({"squares": _squares});
   }
@@ -117,7 +117,7 @@ class SquareSet {
   twoSquaresAwayFrom(from) {
     let squares = this.squares.filter(function(s) {
       let vector = new Vector(s, from);
-      return vector.distance() === 2;
+      return vector.distance === 2;
     });
     return new SquareSet({"squares": squares});
   }
@@ -125,7 +125,7 @@ class SquareSet {
   oneSquareAwayFrom(from) {
     let squares = this.squares.filter(function(s) {
       let vector = new Vector(s, from);
-      return vector.distance() === 1;
+      return vector.distance === 1;
     });
     return new SquareSet({"squares": squares});
   }
@@ -136,7 +136,7 @@ class SquareSet {
         if (piece.king) {
           return true;
         } else {
-          return (new Vector(from, s)).directionY() === piece.direction();
+          return (new Vector(from, s)).directionY === piece.direction;
         }
       } else {
         return false;
@@ -145,16 +145,16 @@ class SquareSet {
     return new SquareSet({"squares": squares});
   }
 
-  occupied() {
+  get occupied() {
     let squares = this.squares.filter(function(s) {
-      return s.occupied();
+      return s.occupied;
     });
     return new SquareSet({"squares": squares});
   }
 
-  unoccupied() {
+  get unoccupied() {
     let squares = this.squares.filter(function(s) {
-      return s.unoccupied();
+      return s.unoccupied;
     });
     return new SquareSet({"squares": squares});
   }
@@ -163,16 +163,16 @@ class SquareSet {
     let vector = new Vector(a, b);
     let squares = [];
 
-    if (vector.diagonal()) {
-      let pointCounter = a.point();
-      let direction = vector.direction();
+    if (vector.diagonal) {
+      let pointCounter = a.point;
+      let direction = vector.direction;
       squares = [];
 
-      while (pointCounter.notEq(b.point())) {
+      while (pointCounter.notEq(b.point)) {
         pointCounter = pointCounter.add(direction);
         let square = this.findSquare(pointCounter.x, pointCounter.y);
 
-        if (exists(square) && square.point().notEq(b.point())) {
+        if (exists(square) && square.point.notEq(b.point)) {
           squares.push(square);
         }
       }

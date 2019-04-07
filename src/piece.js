@@ -6,7 +6,7 @@ class Piece {
     this.selected = args.selected ? args.selected : false;
   }
 
-  asJson() {
+  get asJson() {
     return {
       id: this.id,
       player_number: this.playerNumber,
@@ -15,7 +15,7 @@ class Piece {
     };
   }
 
-  direction() {
+  get direction() {
     return (this.playerNumber === 1) ? 1 : -1;
   }
 

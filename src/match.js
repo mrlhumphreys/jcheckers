@@ -12,10 +12,10 @@ class Match {
     this.lastAction = exists(args.last_action) ? args.last_action : null;
   }
 
-  asJson() {
+  get asJson() {
     return {
       id: this.id,
-      game_state: this.gameState.asJson(),
+      game_state: this.gameState.asJson,
       players: this.players,
       winner: this.winner,
       current_move_from_id: this.currentMoveFromId,
@@ -41,7 +41,7 @@ class Match {
   // external actions
 
   touchSquare(squareId, playerNumber) { 
-    let selectedSquare = this.gameState.selectedSquare();
+    let selectedSquare = this.gameState.selectedSquare;
     let touchedSquare = this.gameState.findSquareById(squareId);
 
     if (exists(this.winner)) {

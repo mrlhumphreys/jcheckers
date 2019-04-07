@@ -10,7 +10,7 @@ class Move {
     this.error = null;
   }
  
-  possible() {
+  get possible() {
     if (this.from.selectable(this.gameState.squares)) {
       this.error = null;
     } else {
@@ -19,7 +19,7 @@ class Move {
     return this.error === null;
   }
 
-  valid() {
+  get valid() {
     let legs = this._legs(this.from, this.tos, this.proposedTo);
 
     let allLegsActionable = eachCons(legs,2).every((leg) => {
@@ -35,7 +35,7 @@ class Move {
     return this.error === null;
   }
 
-  complete() {
+  get complete() {
     let legs = this._legs(this.from, this.tos, this.proposedTo);
     let lastLeg = this._lastLeg(legs);
 
@@ -53,15 +53,15 @@ class Move {
   }
 
   _moveType(leg) {
-    return leg.distance() === 1;
+    return leg.distance === 1;
   }
 
   _jumpType(leg) {
-    return leg.distance() === 2;
+    return leg.distance === 2;
   }
 
   _lastLegEnd(piece, lastSquare, toSquares) {
-    return lastSquare.possibleJumps(piece, this.gameState.squares).difference(toSquares).empty();
+    return lastSquare.possibleJumps(piece, this.gameState.squares).difference(toSquares).empty;
   }
 }
 

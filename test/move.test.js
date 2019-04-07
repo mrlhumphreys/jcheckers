@@ -7,7 +7,7 @@ describe('Move', () => {
       let gameState = fixtures('gameState');
       let from = gameState.findSquareById(12);      
       let move = new Move({from: from, gameState: gameState});
-      expect(move.possible()).toBe(true);
+      expect(move.possible).toBe(true);
       expect(move.error).toBe(null);
     });
 
@@ -15,7 +15,7 @@ describe('Move', () => {
       let gameState = fixtures('gameState');
       let from = gameState.findSquareById(5);      
       let move = new Move({from: from, gameState: gameState});
-      expect(move.possible()).toBe(false);
+      expect(move.possible).toBe(false);
       expect(move.error.name).toEqual('CannotMoveError');
     });
   }); 
@@ -27,7 +27,7 @@ describe('Move', () => {
       let tos = gameState.findSquareById([]);
       let proposedTo = gameState.findSquareById(16);
       let move = new Move({from: from, tos: tos, proposedTo: proposedTo, gameState: gameState});
-      expect(move.valid()).toBe(true);
+      expect(move.valid).toBe(true);
       expect(move.error).toBe(null);
     });
 
@@ -38,7 +38,7 @@ describe('Move', () => {
       let proposedTo = gameState.findSquareById(9);
 
       let move = new Move({from: from, tos: tos, proposedTo: proposedTo, gameState: gameState});
-      expect(move.valid()).toBe(false);
+      expect(move.valid).toBe(false);
       expect(move.error.name).toEqual('CannotMoveError');
     });
   }); 
@@ -51,7 +51,7 @@ describe('Move', () => {
       let proposedTo = gameState.findSquareById(16);
 
       let move = new Move({from: from, tos: tos, proposedTo: proposedTo, gameState: gameState});
-      expect(move.complete()).toBe(true);
+      expect(move.complete).toBe(true);
     });
 
     it("returns false if jump type and it can continue", () => {
@@ -67,7 +67,7 @@ describe('Move', () => {
       let tos = gameState.findSquareById([]);
       let proposedTo = gameState.findSquareById(10);
       let move = new Move({from: from, tos: tos, proposedTo: proposedTo, gameState: gameState});
-      expect(move.complete()).toBe(false);
+      expect(move.complete).toBe(false);
     });
 
     it("returns true if jump type and it cannot continue", () => {
@@ -83,7 +83,7 @@ describe('Move', () => {
       let tos = gameState.findSquareById([10]);
       let proposedTo = gameState.findSquareById(17);
       let move = new Move({from: from, tos: tos, proposedTo: proposedTo, gameState: gameState});
-      expect(move.complete()).toBe(true);
+      expect(move.complete).toBe(true);
     });
   }); 
 });

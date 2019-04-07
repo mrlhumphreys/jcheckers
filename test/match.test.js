@@ -4,7 +4,7 @@ describe("Match", () => {
   describe('asJson', () => {
     it('must return the match as json', () => {
       let match = fixtures('match');
-      expect(match.asJson()).toEqual({
+      expect(match.asJson).toEqual({
         id: 1,
         game_state: { 
           current_player_number: 1,
