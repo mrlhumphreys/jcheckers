@@ -31,6 +31,38 @@ describe("Square", () => {
     });
   });
 
+  describe('occupiedBy', () => {
+    describe('when piece is owned by the player', () => {
+      it('must return true', () => {
+        let square = fixtures('square', { piece: { player_number: 1 }});
+        expect(square.occupiedBy(1)).toBe(true);
+      });
+    });
+
+    describe('when piece is not owned by the player', () => {
+      it('must return false', () => {
+        let square = fixtures('square', { piece: { player_number: 2 }});
+        expect(square.occupiedBy(1)).toBe(false);
+      });
+    });
+  });
+
+  describe('occupiedByOpponentOf', () => {
+    describe('when piece is owned by the player', () => {
+      it('must return false', () => {
+        let square = fixtures('square', { piece: { player_number: 1 }});
+        expect(square.occupiedByOpponentOf(1)).toBe(false);
+      });
+    });
+
+    describe('when piece is not owned by the player', () => {
+      it('must return true', () => {
+        let square = fixtures('square', { piece: { player_number: 2 }});
+        expect(square.occupiedByOpponentOf(1)).toBe(true);
+      });
+    });
+  });
+
   describe("with a piece", () => {
     it("must have the same player as the piece", () => {
       let square = new Square({x: 1, y: 1, piece: { player_number: 1, king: false } });

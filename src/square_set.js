@@ -98,44 +98,39 @@ class SquareSet {
   }
 
   allPossibleJumps(squares) {
-    let _squares = this.squares.filter((s) => {
+    return this.filter((s) => {
       return s.possibleJumps(s.piece, squares).any;
     });
-    return new SquareSet({"squares": _squares});
   }
 
   occupiedByOpponentOf(playerNumber) {
-    let squares = this.squares.filter(function(s) {
-      return exists(s.piece) && (s.piece.playerNumber != playerNumber);
+    return this.filter(function(s) {
+      return s.occupiedByOpponentOf(playerNumber);
     });
-    return new SquareSet({"squares": squares});
   }
 
   occupiedBy(playerNumber) {
-    let squares = this.squares.filter(function(s) {
-      return exists(s.piece) && (s.piece.playerNumber === playerNumber);
+    return this.filter(function(s) {
+      return s.occupiedBy(playerNumber);
     });
-    return new SquareSet({"squares": squares});
+  }
+
+  squaresAwayFrom(number, from) {
+    return this.filter((s) => {
+      return (new Vector(s, from)).distance === number;
+    });
   }
 
   twoSquaresAwayFrom(from) {
-    let squares = this.squares.filter(function(s) {
-      let vector = new Vector(s, from);
-      return vector.distance === 2;
-    });
-    return new SquareSet({"squares": squares});
+    return this.squaresAwayFrom(2, from);
   }
 
   oneSquareAwayFrom(from) {
-    let squares = this.squares.filter(function(s) {
-      let vector = new Vector(s, from);
-      return vector.distance === 1;
-    });
-    return new SquareSet({"squares": squares});
+    return this.squaresAwayFrom(1, from);
   }
 
   inDirectionOf(piece, from) {
-    let squares = this.squares.filter(function(s) {
+    return this.filter(function(s) {
       if (exists(piece)) {
         if (piece.king) {
           return true;
@@ -146,21 +141,18 @@ class SquareSet {
         return false;
       }
     });
-    return new SquareSet({"squares": squares});
   }
 
   get occupied() {
-    let squares = this.squares.filter(function(s) {
+    return this.filter(function(s) {
       return s.occupied;
     });
-    return new SquareSet({"squares": squares});
   }
 
   get unoccupied() {
-    let squares = this.squares.filter(function(s) {
+    return this.filter(function(s) {
       return s.unoccupied;
     });
-    return new SquareSet({"squares": squares});
   }
 
   between(a, b) {

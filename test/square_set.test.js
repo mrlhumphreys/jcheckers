@@ -227,6 +227,15 @@ describe("SquareSet", () => {
     });
   });
 
+  describe("squaresAwayFrom", () => {
+    it("must return all squares number of squares away from the square", () => {
+      let squares = fixtures('withNeighboursSquareSet');
+      let square = squares.findSquare(1, 1);
+      let number = 2;
+      expect(squares.squaresAwayFrom(2, square).any).toBe(true);
+    });
+  });
+
   describe("twoSquaresAwayFrom", () => {
     it("must return all squares two squares away from the square", () => {
       let squares = fixtures('withNeighboursSquareSet');

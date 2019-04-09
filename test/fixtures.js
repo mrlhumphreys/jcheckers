@@ -2,8 +2,20 @@ import exists from '../src/exists'
 import Match from '../src/match'
 import GameState from '../src/game_state'
 import SquareSet from '../src/square_set'
+import Square from '../src/square'
 
 const fixtureDefinitions = {
+  square: {
+    klass: Square,
+    args: {
+      id: 1,
+      x: 1,
+      y: 0,
+      piece: {
+        player_number: 1
+      }
+    }
+  },
   match: {
     klass: Match,
     args: { 

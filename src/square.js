@@ -60,6 +60,14 @@ class Square {
     return this.piece != null;
   }
 
+  occupiedBy(playerNumber) {
+    return exists(this.piece) && (this.piece.playerNumber === playerNumber);
+  }
+
+  occupiedByOpponentOf(playerNumber) {
+    return exists(this.piece) && (this.piece.playerNumber != playerNumber);
+  }
+
   get unoccupied() {
     return this.piece === null;
   }

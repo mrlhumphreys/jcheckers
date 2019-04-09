@@ -34,24 +34,22 @@ class Vector {
     }
   }
 
-  get directionY() {
-    if (this.dy > 0) {
+  _directionD(d) {
+    if (d > 0) {
       return 1;
-    } else if (this.dy === 0) {
+    } else if (d === 0) {
       return 0;
     } else {
       return -1;
     }
   }
 
+  get directionY() {
+    return this._directionD(this.dy);
+  }
+
   get directionX() {
-    if (this.dx > 0) {
-      return 1;
-    } else if (this.dx === 0) {
-      return 0;
-    } else {
-      return -1;
-    }
+    return this._directionD(this.dx);
   }
 
   get direction() {
