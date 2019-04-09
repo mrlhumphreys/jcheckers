@@ -1,5 +1,6 @@
 import exists from './exists';
 import GameState from './game_state';
+import Move from './move';
 
 class Match {
   constructor(args) {
@@ -24,20 +25,6 @@ class Match {
     };
   }
 
-  // move calculations
-
-  movePossible(fromId) {
-    return this.gameState.movePossible(fromId);
-  }
-
-  moveValid(fromId, toIds, proposedToId) {
-    return this.gameState.moveValid(fromId, toIds, proposedToId);
-  }
-
-  moveComplete(fromId, toIds, proposedToId) {
-    return this.gameState.moveComplete(fromId, toIds, proposedToId);
-  }
-
   // external actions
 
   touchSquare(squareId, playerNumber) { 
@@ -50,8 +37,15 @@ class Match {
       this._notify('It is not your turn.');
     } else {
       if (exists(selectedSquare)) {
-        if (this.moveValid(this.currentMoveFromId, this.currentMoveToIds, touchedSquare.id)) {
-          if (this.moveComplete(this.currentMoveFromId, this.currentMoveToIds, touchedSquare.id)) {
+        let move = new Move({
+          fromId: this.currentMoveFromId,
+          toIds: this.currentMoveToIds,
+          proposedToId: touchedSquare.id,
+          gameState: this.gameState 
+        });
+
+        if (move.valid) {
+          if (move.complete) {
             let fromId = selectedSquare.id
             let toIds = this.currentMoveToIds.concat([touchedSquare.id])
             this.gameState.movePieces(fromId, toIds);
@@ -69,9 +63,14 @@ class Match {
           this._notify('Move is not valid.');
         }
       } else {
+        let move = new Move({
+          fromId: touchedSquare.id,
+          gameState: this.gameState 
+        });
+
         if (exists(touchedSquare.piece)) {
           if (touchedSquare.piece.playerNumber === playerNumber) {
-            if (this.movePossible(touchedSquare.id)) {
+            if (move.possible) {
               this.gameState.selectSquare(touchedSquare.id);
               this._addFromToCurrentMove(touchedSquare.id);
             } else {

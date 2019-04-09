@@ -70,28 +70,6 @@ describe("Match", () => {
     }); 
   });
 
-  describe("movePossible", () => {
-    it("returns the result from GameState", () => {
-      let match = fixtures('match');
-      let fromId = 12;      
-      expect(match.movePossible(fromId)).toBe(true);
-    });
-  });
-
-  describe("moveValid", () => {
-    it("returns the result from GameState", () => {
-      let match = fixtures('match');
-      expect(match.moveValid(12, [], 16)).toBe(true);
-    });
-  });
-
-  describe("moveComplete", () => {
-    it("returns the result from gameState", () => {
-      let match = fixtures('match');
-      expect(match.moveComplete(12, [], 16)).toBe(true);
-    });
-  });
-
   describe('touchSquare', () => {
     describe('with a winner', () => {
       it('notifies with a message', () => {

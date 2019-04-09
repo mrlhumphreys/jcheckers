@@ -79,28 +79,6 @@ describe('GameState', () => {
     });
   });
 
-  describe("movePossible", () => {
-    it("returns true if the square is selectable", () => {
-      let gameState = fixtures('gameState');
-      let fromId = 12;      
-      expect(gameState.movePossible(fromId)).toBe(true);
-    });
-  });
-
-  describe("moveValid", () => {
-    it("returns true if the piece can move", () => {
-      let gameState = fixtures('gameState');
-      expect(gameState.moveValid(12, [], 16)).toBe(true);
-    });
-  });
-
-  describe("moveComplete", () => {
-    it("returns the result of the move", () => {
-      let gameState = fixtures('gameState');
-      expect(gameState.moveComplete(12, [], 16)).toBe(true);
-    });
-  });
-
   describe('selectSquare', () => {
     describe('with a square that exists', () => {
       it('must mark the square as selected', () => {
