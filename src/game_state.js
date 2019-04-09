@@ -31,26 +31,17 @@ class GameState {
   // move calculations
 
   movePossible(fromId) {
-    let from = this.findSquareById(fromId);
-    let move = new Move({from: from, gameState: this});
+    let move = new Move({fromId: fromId, gameState: this});
     return move.possible;
   }
 
   moveValid(fromId, toIds, proposedToId) {
-    let from = this.findSquareById(fromId);
-    let tos = this.findSquareById(toIds);
-    let proposedTo = this.findSquareById(proposedToId);
-
-    let move = new Move({from: from, tos: tos, proposedTo: proposedTo, gameState: this});
+    let move = new Move({fromId: fromId, toIds: toIds, proposedToId: proposedToId, gameState: this});
     return move.valid;
   }
 
   moveComplete(fromId, toIds, proposedToId) {
-    let from = this.findSquareById(fromId);
-    let tos = this.findSquareById(toIds);
-    let proposedTo = this.findSquareById(proposedToId);
-
-    let move = new Move({from: from, tos: tos, proposedTo: proposedTo, gameState: this});
+    let move = new Move({fromId: fromId, toIds: toIds, proposedToId: proposedToId, gameState: this});
     return move.complete;
   }
 

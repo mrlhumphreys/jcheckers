@@ -52,6 +52,52 @@ describe("SquareSet", () => {
     });
   });
 
+  describe('findSquareById', () => {
+    describe('when square with matching id is in set', () => {
+      it('must return the square', () => {
+        let squares = fixtures('squareSet');
+        let square = squares.findSquareById(1);
+        expect(square).toBeInstanceOf(Square);
+        expect(square.id).toEqual(1);
+      });
+    });
+
+    describe('when squares with matching array of ids are in set', () => {
+      it('must return the squares', () => {
+        let squares = fixtures('squareSet');
+        let foundSquares = squares.findSquareById([1,2]);
+        expect(foundSquares).toBeInstanceOf(SquareSet);
+        expect(foundSquares.first.id).toEqual(1);
+        expect(foundSquares.last.id).toEqual(2);
+      });
+    });
+
+    describe('when square is not in set', () => {
+      it('must return undefined', () => {
+        let squares = fixtures('squareSet');
+        let square = squares.findSquareById(0);
+        expect(square).toBe(undefined);
+      });
+    });
+
+    describe('when squares are not in set', () => {
+      it('must return empty', () => {
+        let squares = fixtures('squareSet');
+        let foundSquares = squares.findSquareById([0,-1]);
+        expect(foundSquares).toBeInstanceOf(SquareSet);
+        expect(foundSquares.length).toEqual(0);
+      });
+    });
+
+    describe('when id is invalid', () => {
+      it('must return undefined', () => {
+        let squares = fixtures('squareSet');
+        let square = squares.findSquareById(undefined);
+        expect(square).toBe(undefined); 
+      });
+    });
+  });
+
   describe("square in set", () => {
     it("must find square", () => {
       let squares = fixtures('withSquareSquareSet');

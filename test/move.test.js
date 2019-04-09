@@ -5,16 +5,16 @@ describe('Move', () => {
   describe('possible', () => { 
     it("returns true if the square is selectable", () => {
       let gameState = fixtures('gameState');
-      let from = gameState.findSquareById(12);      
-      let move = new Move({from: from, gameState: gameState});
+      let fromId = 12;
+      let move = new Move({fromId: fromId, gameState: gameState});
       expect(move.possible).toBe(true);
       expect(move.error).toBe(null);
     });
 
     it("returns false if the square is not selectable", () => {
       let gameState = fixtures('gameState');
-      let from = gameState.findSquareById(5);      
-      let move = new Move({from: from, gameState: gameState});
+      let fromId = 5;
+      let move = new Move({fromId: fromId, gameState: gameState});
       expect(move.possible).toBe(false);
       expect(move.error.name).toEqual('CannotMoveError');
     });
@@ -23,21 +23,21 @@ describe('Move', () => {
   describe('valid', () => { 
     it("returns true if the piece can move", () => {
       let gameState = fixtures('gameState');
-      let from = gameState.findSquareById(12);
-      let tos = gameState.findSquareById([]);
-      let proposedTo = gameState.findSquareById(16);
-      let move = new Move({from: from, tos: tos, proposedTo: proposedTo, gameState: gameState});
+      let fromId = 12;
+      let toIds = [];
+      let proposedToId = 16;
+      let move = new Move({fromId: fromId, toIds: toIds, proposedToId: proposedToId, gameState: gameState});
       expect(move.valid).toBe(true);
       expect(move.error).toBe(null);
     });
 
     it("returns false if the piece cannot move", () => {
       let gameState = fixtures('gameState');
-      let from = gameState.findSquareById(5);
-      let tos = gameState.findSquareById([]);
-      let proposedTo = gameState.findSquareById(9);
+      let fromId = 5;
+      let toIds = [];
+      let proposedToId = 9;
 
-      let move = new Move({from: from, tos: tos, proposedTo: proposedTo, gameState: gameState});
+      let move = new Move({fromId: fromId, toIds: toIds, proposedToId: proposedToId, gameState: gameState});
       expect(move.valid).toBe(false);
       expect(move.error.name).toEqual('CannotMoveError');
     });
@@ -46,11 +46,11 @@ describe('Move', () => {
   describe('complete', () => { 
     it("returns true if a move", () => {
       let gameState = fixtures('gameState');
-      let from = gameState.findSquareById(12);
-      let tos = gameState.findSquareById([]);
-      let proposedTo = gameState.findSquareById(16);
+      let fromId = 12;
+      let toIds = [];
+      let proposedToId = 16;
 
-      let move = new Move({from: from, tos: tos, proposedTo: proposedTo, gameState: gameState});
+      let move = new Move({fromId: fromId, toIds: toIds, proposedToId: proposedToId, gameState: gameState});
       expect(move.complete).toBe(true);
     });
 
@@ -63,10 +63,10 @@ describe('Move', () => {
         { id: 17, x: 1, y: 4, piece: null}
       ];
       let gameState = fixtures('gameState', {squares: squares});
-      let from = gameState.findSquareById(1);
-      let tos = gameState.findSquareById([]);
-      let proposedTo = gameState.findSquareById(10);
-      let move = new Move({from: from, tos: tos, proposedTo: proposedTo, gameState: gameState});
+      let fromId = 1;
+      let toIds = [];
+      let proposedToId = 10;
+      let move = new Move({fromId: fromId, toIds: toIds, proposedToId: proposedToId, gameState: gameState});
       expect(move.complete).toBe(false);
     });
 
@@ -79,10 +79,10 @@ describe('Move', () => {
         { id: 17, x: 1, y: 4, piece: null}
       ];
       let gameState = fixtures('gameState', { squares: squares });
-      let from = gameState.findSquareById(1);
-      let tos = gameState.findSquareById([10]);
-      let proposedTo = gameState.findSquareById(17);
-      let move = new Move({from: from, tos: tos, proposedTo: proposedTo, gameState: gameState});
+      let fromId = 1;
+      let toIds = [10];
+      let proposedToId = 17;
+      let move = new Move({fromId: fromId, toIds: toIds, proposedToId: proposedToId, gameState: gameState});
       expect(move.complete).toBe(true);
     });
   }); 

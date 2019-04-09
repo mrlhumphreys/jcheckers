@@ -17,9 +17,13 @@ class SquareSet {
   }
 
   findSquareById(id) {
-    if (id.constructor.name === "Array") {
+    if (!exists(id)) {
+      return undefined;
+    } else if (id.constructor.name === "Array") {
       let _squares = id.map((i) => {
         return this.findSquareById(i);
+      }).filter((s) => { 
+        return exists(s); 
       });
       return new SquareSet({"squares": _squares});
     } else {

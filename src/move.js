@@ -3,15 +3,15 @@ import Vector from './vector'
 
 class Move {
   constructor(args) {
-    this.from = args.from;
-    this.tos = args.tos;
-    this.proposedTo = args.proposedTo;
+    this.fromId = args.fromId;
+    this.toIds = args.toIds;
+    this.proposedToId = args.proposedToId;
     this.gameState = args.gameState;
     this.error = null;
   }
  
   get possible() {
-    if (this.from.selectable(this.gameState.squares)) {
+    if (this._from.selectable(this.gameState.squares)) {
       this.error = null;
     } else {
       this.error = { name: 'CannotMoveError', message: 'This piece cannot move' };
@@ -20,10 +20,10 @@ class Move {
   }
 
   get valid() {
-    let legs = this._legs(this.from, this.tos, this.proposedTo);
+    let legs = this._legs(this._from, this._tos, this._proposedTo);
 
     let allLegsActionable = eachCons(legs,2).every((leg) => {
-      return leg[0].actionable(this.from.piece, leg[1], this.gameState.squares);
+      return leg[0].actionable(this._from.piece, leg[1], this.gameState.squares);
     });
 
     if (allLegsActionable) {
@@ -36,10 +36,22 @@ class Move {
   }
 
   get complete() {
-    let legs = this._legs(this.from, this.tos, this.proposedTo);
+    let legs = this._legs(this._from, this._tos, this._proposedTo);
     let lastLeg = this._lastLeg(legs);
 
-    return (this._moveType(lastLeg) || (this._jumpType(lastLeg) && this._lastLegEnd(this.from.piece, this.proposedTo, this.tos)));
+    return (this._moveType(lastLeg) || (this._jumpType(lastLeg) && this._lastLegEnd(this._from.piece, this._proposedTo, this._tos)));
+  }
+
+  get _from() {
+    return this.gameState.findSquareById(this.fromId);
+  }
+
+  get _tos() {
+    return this.gameState.findSquareById(this.toIds);
+  }
+
+  get _proposedTo() {
+    return this.gameState.findSquareById(this.proposedToId);
   }
 
   _legs(fromSquare, toSquares, proposedToSquare) {
