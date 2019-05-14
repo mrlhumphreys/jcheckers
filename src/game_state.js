@@ -70,6 +70,14 @@ class GameState {
       }
     });
   }
+
+  passTurn() {
+    if (this.currentPlayerNumber == 1) {
+      this.currentPlayerNumber = 2;
+    } else {
+      this.currentPlayerNumber = 1;
+    }
+  }
 };
 
 export default GameState;

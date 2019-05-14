@@ -99,6 +99,12 @@ describe("Match", () => {
             expect(toSquare.piece).not.toBe(null);
           });
 
+          it('passes the turn', () => {
+            let match = fixtures('selectedSquareMatch');
+            match.touchSquare(16, 1); 
+            expect(match.gameState.currentPlayerNumber).toEqual(2);
+          });
+
           it('adds info to last_action', () => {
             let match = fixtures('selectedSquareMatch');
             match.touchSquare(16, 1); 
