@@ -93,6 +93,10 @@ class Square {
   mark() {
     this.marked = true;
   }
+
+  unmark() {
+    this.marked = false;
+  }
 }
 
 export default Square;

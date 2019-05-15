@@ -125,6 +125,15 @@ describe('GameState', () => {
     });
   });
 
+  describe('unmarkSquares', () => {
+    it('must unmark all squares', () => {
+      let gameState = fixtures('markedSquareGameState');
+      gameState.unmarkSquares();
+      let square = gameState.squares.filter(function(s) { return s.marked; }).first;
+      expect(square).toBe(undefined);
+    }); 
+  });
+
   describe('movePieces', () => {
     describe('with a move', () => {
       it('moves the piece', () => {

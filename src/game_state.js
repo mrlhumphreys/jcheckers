@@ -47,6 +47,10 @@ class GameState {
     } 
   }
 
+  unmarkSquares() {
+    this.squares.unmarkSquares();
+  }
+
   movePieces(fromId, toIds) {
     let from = this.findSquareById(fromId);
     let tos = this.findSquareById(toIds);

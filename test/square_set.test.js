@@ -283,4 +283,13 @@ describe("SquareSet", () => {
       expect(squares.selectedSquare).toBe(undefined);
     });
   });
+
+  describe('unmarkSquares', () => {
+    it('must unmark all squares', () => {
+      let squares = fixtures('withMarkedSquareSet');
+      squares.deselectSquares();
+      let square = squares.filter(function(s) { return s.marked; }).first;
+      expect(square).toBe(undefined);
+    });
+  });
 });

@@ -105,6 +105,13 @@ describe("Match", () => {
             expect(match.gameState.currentPlayerNumber).toEqual(2);
           });
 
+          it('unmark squares', () => {
+            let match = fixtures('doubleJumpAlmostCompleteMatch');
+            match.touchSquare(19, 1); 
+            let square = match.gameState.squares.filter(function(s) { return s.marked; }).first;
+            expect(square).toBe(undefined);
+          });
+
           it('adds info to last_action', () => {
             let match = fixtures('selectedSquareMatch');
             match.touchSquare(16, 1); 

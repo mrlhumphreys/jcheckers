@@ -259,4 +259,12 @@ describe("Square", () => {
       expect(square.marked).toBe(true);
     });
   });
+  
+  describe('unmark', () => {
+    it('must unmark the square as selected', () => {
+      let square = new Square({id: 1, x: 1, y: 1, piece: null, marked: true}); 
+      square.unmark();
+      expect(square.marked).toBe(false);
+    });
+  });
 });

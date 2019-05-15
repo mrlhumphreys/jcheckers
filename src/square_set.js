@@ -183,6 +183,10 @@ class SquareSet {
   deselectSquares() {
     this.squares.forEach(function(square) { square.deselect(); });
   }
+
+  unmarkSquares() {
+    this.squares.forEach(function(square) { square.unmark(); });
+  }
 }
 
 export default SquareSet;

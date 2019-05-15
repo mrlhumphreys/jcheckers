@@ -52,6 +52,7 @@ class Match {
             this._clearMove();
             this.gameState.deselectSquares();
             this.gameState.passTurn();
+            this.gameState.unmarkSquares();
             this._addMoveToLastAction(fromId, toIds);
           } else {
             this.gameState.markSquare(touchedSquare.id);
