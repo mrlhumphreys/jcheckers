@@ -11,7 +11,7 @@ class Match {
     this.currentMoveFromId = exists(args.current_move_from_id) ? args.current_move_from_id : null;
     this.currentMoveToIds = exists(args.current_move_to_ids) ? args.current_move_to_ids : [];
     this.lastAction = exists(args.last_action) ? args.last_action : null;
-    this.notification = exists(args.notification) ? args.notification: null;
+    this.notification = exists(args.notification) ? args.notification: this._defaultMessage;
   }
 
   get asJson() {
@@ -22,7 +22,8 @@ class Match {
       winner: this.winner,
       current_move_from_id: this.currentMoveFromId,
       current_move_to_ids: this.currentMoveToIds,
-      last_action: this.lastAction
+      last_action: this.lastAction,
+      notification: this.notification
     };
   }
 
@@ -47,14 +48,15 @@ class Match {
 
         if (move.valid) {
           if (move.complete) {
-            let fromId = selectedSquare.id
-            let toIds = this.currentMoveToIds.concat([touchedSquare.id])
+            let fromId = selectedSquare.id;
+            let toIds = this.currentMoveToIds.concat([touchedSquare.id]);
             this.gameState.movePieces(fromId, toIds);
             this._clearMove();
             this.gameState.deselectSquares();
             this.gameState.passTurn();
             this.gameState.unmarkSquares();
             this._addMoveToLastAction(fromId, toIds);
+            this._notify(this._defaultMessage);
           } else {
             this.gameState.markSquare(touchedSquare.id);
             this._addToToCurrentMove(touchedSquare.id);
@@ -89,6 +91,27 @@ class Match {
           this._notify('That square is empty.');
         }
       }
+    }
+  }
+
+  // private getters
+  get _turnMessage() {
+    let currentPlayerIndex = this.gameState.currentPlayerNumber - 1;
+    let currentPlayerName = this.players[currentPlayerIndex].name;
+    return `${currentPlayerName} to move`;
+  }
+
+  get _winnerMessage() { 
+    let winnerIndex = this.winner - 1;
+    let winnerName = this.players[winnerIndex].name;
+    return `${winnerName} wins`;
+  }
+
+  get _defaultMessage() { 
+    if (exists(this.winner)) {
+      return this._winnerMessage;
+    } else {
+      return this._turnMessage;
     }
   }
 

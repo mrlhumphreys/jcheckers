@@ -1,6 +1,22 @@
 import fixtures from './fixtures'
 
 describe("Match", () => {
+  describe('initialize', () => {
+    describe('with no winner', () => {
+      it('sets the notification to a players turn message', () => {
+        let match = fixtures('match');
+        expect(match.notification).toEqual('aaa to move');
+      });
+    });
+
+    describe('with winner', () => {
+      it('sets the notification to winner message', () => {
+        let match = fixtures('match', { winner: 2 });
+        expect(match.notification).toEqual('bbb wins');
+      });
+    });
+  });
+
   describe('asJson', () => {
     it('must return the match as json', () => {
       let match = fixtures('match');
@@ -57,7 +73,8 @@ describe("Match", () => {
         winner: null,
         current_move_from_id: null,
         current_move_to_ids: [],
-        last_action: null
+        last_action: null,
+        notification: 'aaa to move'
       });
     });
   });
@@ -123,6 +140,12 @@ describe("Match", () => {
             match.touchSquare(16, 1); 
             expect(match.currentMoveFromId).toBe(null);
             expect(match.currentMoveToIds).toEqual([]);
+          });
+
+          it('updates the notification', () => {
+            let match = fixtures('selectedSquareMatch');
+            match.touchSquare(16, 1); 
+            expect(match.notification).toEqual('bbb to move');
           });
         });
 
