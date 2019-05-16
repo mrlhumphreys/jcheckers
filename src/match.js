@@ -11,6 +11,7 @@ class Match {
     this.currentMoveFromId = exists(args.current_move_from_id) ? args.current_move_from_id : null;
     this.currentMoveToIds = exists(args.current_move_to_ids) ? args.current_move_to_ids : [];
     this.lastAction = exists(args.last_action) ? args.last_action : null;
+    this.notification = exists(args.notification) ? args.notification: null;
   }
 
   get asJson() {
@@ -107,7 +108,7 @@ class Match {
   }
 
   _notify(message) {
-    this.lastAction = { kind: 'notification', data: { message: message }};
+    this.notification = message;
   }
 
   _addMoveToLastAction(fromId, toIds) {
