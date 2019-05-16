@@ -210,9 +210,39 @@ describe("Square", () => {
 
   describe("point", () => {
     it("must have coordinates equal to the square", () => {
-      let square = new Square({x: 1, y: 1, piece: { player: { number: 1, direction: 1 }, king: false} });
+      let square = new Square({x: 1, y: 1, piece: { player_number: 1, king: false } });
       expect(square.point.x).toEqual(1);
       expect(square.point.y).toEqual(1);
+    });
+  });
+
+  describe('lastRankForPlayer', () => {
+    describe('when player 1', () => {
+      describe('and rank is 7', () => {
+        let square = new Square({x: 0, y: 7, piece: null });
+        let result = square.lastRankForPlayer(1); 
+        expect(result).toBe(true);
+      });
+
+      describe('and rank is not 7', () => {
+        let square = new Square({x: 1, y: 6, piece: null });
+        let result = square.lastRankForPlayer(1); 
+        expect(result).toBe(false);
+      });
+    });
+
+    describe('when player 2', () => {
+      describe('and rank is 0', () => {
+        let square = new Square({x: 1, y: 0, piece: null });
+        let result = square.lastRankForPlayer(2); 
+        expect(result).toBe(true);
+      });
+
+      describe('and rank is not 0', () => {
+        let square = new Square({x: 0, y: 1, piece: null });
+        let result = square.lastRankForPlayer(2); 
+        expect(result).toBe(false);
+      });
     });
   });
 
@@ -265,6 +295,24 @@ describe("Square", () => {
       let square = new Square({id: 1, x: 1, y: 1, piece: null, marked: true}); 
       square.unmark();
       expect(square.marked).toBe(false);
+    });
+  });
+
+  describe('promote', () => {
+    describe('with a piece', () => {
+      it('promotes the piece', () => {
+        let square = new Square({id: 1, x: 1, y: 1, piece: { id: 1, player_number: 1, king: false}}); 
+        square.promote();
+        expect(square.piece.king).toBe(true);
+      });
+    });
+
+    describe('without a piece', () => {
+      it('does not promote the piece', () => {
+        let square = new Square({id: 1, x: 1, y: 1, piece: null }); 
+        square.promote();
+        expect(square.piece).toBe(null);
+      });
     });
   });
 });

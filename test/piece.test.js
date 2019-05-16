@@ -69,4 +69,12 @@ describe('Piece', () => {
       expect(piece.selected).toBe(false);
     });
   });
+
+  describe('promote', () => {
+    it('promotes the piece to king', () => {
+      let piece = new Piece({player_number: 1, king: false});
+      piece.promote();
+      expect(piece.king).toBe(true);
+    });
+  });
 });

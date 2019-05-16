@@ -28,6 +28,10 @@ class Piece {
   deselect() {
     this.selected = false;
   }
+
+  promote() {
+    this.king = true;
+  }
 }
 
 export default Piece;

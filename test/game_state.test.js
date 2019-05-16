@@ -151,6 +151,20 @@ describe('GameState', () => {
       });
     });
 
+    describe('with a move to the last rank', () => {
+      it('promotes the piece', () => {
+        let gameState = fixtures('moveToLastRankGameState');
+        let fromId = 25;
+        let toId = 29; 
+
+        gameState.movePieces(fromId, toId);
+
+        let to = gameState.findSquareById(toId);
+
+        expect(to.piece.king).toBe(true);
+      });
+    });
+
     describe('with a jump', () => {
       it('moves the piece', () => {
         let gameState = fixtures('jumpGameState');

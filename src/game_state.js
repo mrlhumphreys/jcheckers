@@ -73,6 +73,16 @@ class GameState {
         between.piece = null;
       }
     });
+
+    if (tos.constructorName === "SquareSet") {
+      if (tos.last.lastRankForPlayer(this.currentPlayerNumber)) {
+        tos.last.promote();
+      }  
+    } else {
+      if (tos.lastRankForPlayer(this.currentPlayerNumber)) {
+        tos.promote();
+      }
+    }
   }
 
   passTurn() {

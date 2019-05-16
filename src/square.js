@@ -76,6 +76,10 @@ class Square {
     return new Point(this.x, this.y);
   }
 
+  lastRankForPlayer(playerNumber) {
+    return (playerNumber === 1 && this.y === 7) || (playerNumber === 2 && this.y === 0);
+  }
+
   // actions
 
   select() {
@@ -96,6 +100,12 @@ class Square {
 
   unmark() {
     this.marked = false;
+  }
+
+  promote() {
+    if (exists(this.piece)) {
+      this.piece.promote();
+    }
   }
 }
 
