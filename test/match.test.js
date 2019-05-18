@@ -88,6 +88,14 @@ describe("Match", () => {
   });
 
   describe('touchSquare', () => {
+    describe('with a last action', () => {
+      it('clears last action', () => {
+        let match = fixtures('match', { last_action: { kind: 'misc', data: { a: 1 } } });
+        match.touchSquare(1,1);
+        expect(match.lastAction).toBe(null);
+      });
+    });
+
     describe('with a winner', () => {
       it('notifies with a message', () => {
         let match = fixtures('match', { winner: 1 });

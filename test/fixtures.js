@@ -68,7 +68,8 @@ const fixtureDefinitions = {
         { number: 1, name: 'aaa' },
         { number: 2, name: 'bbb' }
       ],
-      winner: null
+      winner: null,
+      last_action: null
     } 
   },
   selectedSquareMatch: {
@@ -1005,11 +1006,31 @@ const fixtureDefinitions = {
 const deepMerge = function(aObject, bObject) {
   let cObject = {};
 
-  let keys = [...new Set([...Object.keys(aObject), ...Object.keys(bObject)])];
+  let aObjectKeys = [];
+  let bObjectKeys = [];
+
+  if (exists(aObject)) {
+    aObjectKeys = Object.keys(aObject);
+  }
+
+  if (exists(bObject)) {
+    bObjectKeys = Object.keys(bObject);
+  }
+
+  let keys = [...new Set([...aObjectKeys, ...bObjectKeys])];
 
   keys.forEach(function(k) {
-    let aValue = aObject[k];
-    let bValue = bObject[k];
+    let aValue = undefined;
+    let bValue = undefined;
+
+    if (exists(aObject)) {
+      aValue = aObject[k];
+    }
+
+    if (exists(bObject)) {
+      bValue = bObject[k];
+    }
+
     let cValue = undefined;
 
     if (exists(bValue)) {

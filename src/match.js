@@ -11,7 +11,7 @@ class Match {
     this.currentMoveFromId = exists(args.current_move_from_id) ? args.current_move_from_id : null;
     this.currentMoveToIds = exists(args.current_move_to_ids) ? args.current_move_to_ids : [];
     this.lastAction = exists(args.last_action) ? args.last_action : null;
-    this.notification = exists(args.notification) ? args.notification: this._defaultMessage;
+    this.notification = exists(args.notification) ? args.notification : this._defaultMessage;
   }
 
   get asJson() {
@@ -32,6 +32,8 @@ class Match {
   touchSquare(squareId, playerNumber) { 
     let selectedSquare = this.gameState.selectedSquare;
     let touchedSquare = this.gameState.findSquareById(squareId);
+
+    this._clearLastAction();
 
     if (exists(this.winner)) {
       this._notify('Game is over.');
@@ -128,6 +130,10 @@ class Match {
   _clearMove() {
     this.currentMoveFromId = null;
     this.currentMoveToIds = [];
+  }
+
+  _clearLastAction() {
+    this.lastAction = null;
   }
 
   _notify(message) {
