@@ -59,6 +59,29 @@ describe('GameState', () => {
     });
   });
 
+  describe('winner', () => {
+    describe('when player 1 has no moves', () => {
+      it('must return 2', () => {
+        let gameState = fixtures('noMovesPlayerOneGameState');
+        expect(gameState.winner).toEqual(2);
+      });
+    });
+
+    describe('when player 2 has no moves', () => {
+      it('must return 1', () => {
+        let gameState = fixtures('noMovesPlayerTwoGameState');
+        expect(gameState.winner).toEqual(1);
+      });
+    });
+
+    describe('when both players have moves', () => {
+      it('must return null', () => {
+        let gameState = fixtures('gameState');
+        expect(gameState.winner).toBe(null);
+      });
+    });
+  });
+
   describe('findSquareById', () => {
     it('returns the square with the matching id', () => {
       let gameState = fixtures('gameState');

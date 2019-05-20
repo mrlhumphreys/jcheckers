@@ -19,6 +19,16 @@ class GameState {
     return this.squares.selectedSquare;
   }
 
+  get winner() {
+    if (this.squares.allMovesForPlayer(1).empty) {
+      return 2;
+    } else if (this.squares.allMovesForPlayer(2).empty) {
+      return 1;
+    } else {
+      return null;
+    }
+  }
+
   findSquareById(id) {
     return this.squares.findSquareById(id);
   }

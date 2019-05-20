@@ -212,6 +212,29 @@ describe("SquareSet", () => {
     });
   });
 
+  describe('allMovesForPlayer', () => {
+    describe('with jumps', () => {
+      it('must return all jumps for the specified player', () => {
+        let squares = fixtures('possibleJumpsSquareSet');
+        expect(squares.allMovesForPlayer(1).any).toBe(true);
+      });
+    });
+
+    describe('with no jumps', () => {
+      it('must return all moves for the specified player', () => {
+        let squares = fixtures('possibleMovesSquareSet');
+        expect(squares.allMovesForPlayer(1).any).toBe(true);
+      });
+    });
+  });
+
+  describe('allPossibleMoves', () => {
+    it('must return all squares that can possibly move', () => {
+      let squares = fixtures('possibleMovesSquareSet');
+      expect(squares.allPossibleMoves(squares).any).toBe(true);
+    });
+  });
+
   describe("allPossibleJumps", () => {
     it("must return all squares that can possibly jump", () => {
       let squares = fixtures('possibleJumpsSquareSet');

@@ -97,6 +97,19 @@ class SquareSet {
     return new SquareSet({"squares": _squares});
   }
 
+  allMovesForPlayer(playerNumber) {
+    let playerSquares = this.occupiedBy(playerNumber);
+    let jumps = playerSquares.allPossibleJumps(this); 
+    let moves = playerSquares.allPossibleMoves(this); 
+    return (jumps.any ? jumps : moves);
+  }
+
+  allPossibleMoves(squares) {
+    return this.filter((s) => {
+      return s.possibleMoves(s.piece, squares).any;
+    });
+  }
+
   allPossibleJumps(squares) {
     return this.filter((s) => {
       return s.possibleJumps(s.piece, squares).any;
