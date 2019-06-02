@@ -1,13 +1,13 @@
 import exists from './exists';
 import GameState from './game_state';
 import Move from './move';
+import Player from './player';
 
 class Match {
   constructor(args) {
     this.id = args.id;
     this.gameState = new GameState(args.game_state);
-    this.players = args.players;
-    this.winner = args.winner;
+    this.players = args.players.map(function(p) { return new Player(p); });
     this.currentMoveFromId = exists(args.current_move_from_id) ? args.current_move_from_id : null;
     this.currentMoveToIds = exists(args.current_move_to_ids) ? args.current_move_to_ids : [];
     this.lastAction = exists(args.last_action) ? args.last_action : null;
@@ -18,13 +18,21 @@ class Match {
     return {
       id: this.id,
       game_state: this.gameState.asJson,
-      players: this.players,
-      winner: this.winner,
+      players: this.players.map(function(p) { return p.asJson(); }),
       current_move_from_id: this.currentMoveFromId,
       current_move_to_ids: this.currentMoveToIds,
       last_action: this.lastAction,
       notification: this.notification
     };
+  }
+
+  get winner() {
+    let playerResigned = this.players.some(function(p) { return p.resigned; });
+    if (playerResigned) {
+      return this.players.filter(function(p) { return !p.resigned; })[0].playerNumber;
+    } else {
+      return this.gameState.winner;
+    }
   }
 
   // external actions
@@ -104,13 +112,13 @@ class Match {
   }
 
   get _winnerMessage() { 
-    let winnerIndex = this.gameState.winner - 1;
+    let winnerIndex = this.winner - 1;
     let winnerName = this.players[winnerIndex].name;
     return `${winnerName} wins`;
   }
 
   get _defaultMessage() { 
-    if (exists(this.gameState.winner)) {
+    if (exists(this.winner)) {
       return this._winnerMessage;
     } else {
       return this._turnMessage;
