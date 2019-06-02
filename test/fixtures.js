@@ -186,8 +186,8 @@ const fixtureDefinitions = {
         ]
       },
       players: [
-        { number: 1, name: 'aaa' },
-        { number: 2, name: 'bbb' }
+        { player_number: 1, name: 'aaa', resigned: false },
+        { player_number: 2, name: 'bbb', resigned: false }
       ],
       winner: null,
       last_action: null
@@ -243,8 +243,8 @@ const fixtureDefinitions = {
         ]
       },
       players: [
-        { number: 1, name: 'aaa' },
-        { number: 2, name: 'bbb' }
+        { player_number: 1, name: 'aaa', resigned: false },
+        { player_number: 2, name: 'bbb', resigned: false }
       ],
       winner: null
     }
@@ -299,8 +299,8 @@ const fixtureDefinitions = {
         ]
       },
       players: [
-        { number: 1, name: 'aaa' },
-        { number: 2, name: 'bbb' }
+        { player_number: 1, name: 'aaa', resigned: false },
+        { player_number: 2, name: 'bbb', resigned: false }
       ],
       winner: null
     }
@@ -356,8 +356,8 @@ const fixtureDefinitions = {
         ]
       },
       players: [
-        { number: 1, name: 'aaa' },
-        { number: 2, name: 'bbb' }
+        { player_number: 1, name: 'aaa', resigned: false },
+        { player_number: 2, name: 'bbb', resigned: false }
       ],
       winner: null
     }

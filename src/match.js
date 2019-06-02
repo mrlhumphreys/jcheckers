@@ -105,16 +105,19 @@ class Match {
   }
 
   // private getters
+
+  _findPlayerByNumber(playerNumber) {
+    return this.players.filter((p) => { return p.playerNumber == playerNumber; })[0]; 
+  }
+
   get _turnMessage() {
-    let currentPlayerIndex = this.gameState.currentPlayerNumber - 1;
-    let currentPlayerName = this.players[currentPlayerIndex].name;
-    return `${currentPlayerName} to move`;
+    let currentPlayer = this._findPlayerByNumber(this.gameState.currentPlayerNumber);
+    return `${currentPlayer.name} to move`;
   }
 
   get _winnerMessage() { 
-    let winnerIndex = this.winner - 1;
-    let winnerName = this.players[winnerIndex].name;
-    return `${winnerName} wins`;
+    let winningPlayer = this._findPlayerByNumber(this.winner);
+    return `${winningPlayer.name} wins`;
   }
 
   get _defaultMessage() { 
