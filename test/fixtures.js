@@ -3,7 +3,6 @@ import Match from '../src/match'
 import GameState from '../src/game_state'
 import SquareSet from '../src/square_set'
 import Square from '../src/square'
-import Player from '../src/player'
 
 const fixtureDefinitions = {
   square: {
@@ -15,14 +14,6 @@ const fixtureDefinitions = {
       piece: {
         player_number: 1
       }
-    }
-  },
-  player: {
-    klass: Player,
-    args: {
-      player_number: 1,
-      name: 'aaa',
-      resigned: false
     }
   },
   match: {
