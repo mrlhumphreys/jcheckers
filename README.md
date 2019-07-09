@@ -51,46 +51,23 @@ Initialize a new match object:
   });
 ```
 
-Check if Move Possible
+Serialize match object:
 
 ```javascript
-  // id of the square that the piece is on.
-  var fromId = 4;
 
-  // returns true if that piece can move.
-  match.movePossible(fromId); 
 ```
 
-Check if Move Valid
+Make a move
 
 ```javascript
-  // id of the square that the piece is on.
-  var fromId = 1;
-
-  // array containing ids of the squares the piece could jump first to.
-  var toIds = [];
-
-  // id of where the piece wants to go to;
-  var proposedToId = 10;
-
-  // returns true if that piece can move to that square.
-  match.moveValid(fromId, toIds, proposedToId); 
+  match.touchSquare(12, 1); // select square  
+  match.touchSquare(16, 1); // move to square  
 ```
 
-Check if Move Complete
+Get winner
 
 ```javascript
-  // id of the square that the piece is on.
-  var fromId = 1;
-
-  // array containing ids of the squares the piece could jump first to.
-  var toIds = [10];
-
-  // id of where the piece wants to go to;
-  var proposedToId = 19;
-
-  // returns true if that piece can move to that square and cannot go further.
-  match.moveValid(fromId, toIds, proposedToId); 
+  match.winner;
 ```
 
 ## Development
