@@ -54,14 +54,14 @@ Initialize a new match object:
 Serialize match object:
 
 ```javascript
-
+  match.asJson;
 ```
 
 Make a move
 
 ```javascript
-  match.touchSquare(12, 1); // select square  
-  match.touchSquare(16, 1); // move to square  
+  match.touchSquare(12, 1); // select square 12 for player 1 
+  match.touchSquare(16, 1); // move to square 16 for player 1 
 ```
 
 Get winner
