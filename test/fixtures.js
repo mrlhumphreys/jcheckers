@@ -189,6 +189,7 @@ const fixtureDefinitions = {
     args: {
       id: 1,
       current_move_from_id: 12,
+      current_move_to_ids: [],
       game_state: { 
         current_player_number: 1,
         squares: [

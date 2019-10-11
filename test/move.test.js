@@ -2,88 +2,137 @@ import Move from '../src/move'
 import fixtures from './fixtures'
 
 describe('Move', () => {
-  describe('possible', () => { 
-    it("returns true if the square is selectable", () => {
-      let gameState = fixtures('gameState');
-      let fromId = 12;
-      let move = new Move({fromId: fromId, gameState: gameState});
-      expect(move.possible).toBe(true);
-      expect(move.error).toBe(null);
+  describe('validate', () => {
+    describe('winning match', () => {
+      it('must return game is over result', () => {
+        let match = fixtures('winningMatch');
+        let move = new Move({
+          match: match
+        });
+        expect(move.result.name).toEqual('GameOver');
+        expect(move.result.message).toEqual('Game is over.');
+      });
     });
 
-    it("returns false if the square is not selectable", () => {
-      let gameState = fixtures('gameState');
-      let fromId = 5;
-      let move = new Move({fromId: fromId, gameState: gameState});
-      expect(move.possible).toBe(false);
-      expect(move.error.name).toEqual('CannotMoveError');
-    });
-  }); 
-
-  describe('valid', () => { 
-    it("returns true if the piece can move", () => {
-      let gameState = fixtures('gameState');
-      let fromId = 12;
-      let toIds = [];
-      let proposedToId = 16;
-      let move = new Move({fromId: fromId, toIds: toIds, proposedToId: proposedToId, gameState: gameState});
-      expect(move.valid).toBe(true);
-      expect(move.error).toBe(null);
+    describe('not players turn', () => {
+      it('must return a not players turn result', () => {
+        let match = fixtures('match');
+        let move = new Move({
+          match: match,
+          touchedSquareId: 12,
+          playerNumber: 2
+        });
+        expect(move.result.name).toEqual('NotPlayersTurn');
+        expect(move.result.message).toEqual('It is not your turn.');
+      });
     });
 
-    it("returns false if the piece cannot move", () => {
-      let gameState = fixtures('gameState');
-      let fromId = 5;
-      let toIds = [];
-      let proposedToId = 9;
-
-      let move = new Move({fromId: fromId, toIds: toIds, proposedToId: proposedToId, gameState: gameState});
-      expect(move.valid).toBe(false);
-      expect(move.error.name).toEqual('CannotMoveError');
-    });
-  }); 
-
-  describe('complete', () => { 
-    it("returns true if a move", () => {
-      let gameState = fixtures('gameState');
-      let fromId = 12;
-      let toIds = [];
-      let proposedToId = 16;
-
-      let move = new Move({fromId: fromId, toIds: toIds, proposedToId: proposedToId, gameState: gameState});
-      expect(move.complete).toBe(true);
+    describe('piece can move', () => {
+      it('must return a move possible result', () => {
+        let match = fixtures('match');
+        let move = new Move({
+          match: match,
+          touchedSquareId: 12,
+          playerNumber: 1  
+        });
+        expect(move.result.name).toEqual('MovePossible');
+        expect(move.result.message).toEqual('');
+      });
     });
 
-    it("returns false if jump type and it can continue", () => {
-      let squares = [
-        { id: 1, x: 1, y: 0, piece: { id: 1, player_number: 1, king: false }},
-        { id: 6, x: 2, y: 1, piece: { id: 13, player_number: 2, king: false }},
-        { id: 10, x: 3, y: 2, piece: null},
-        { id: 14, x: 2, y: 3, piece: { id: 14, player_number: 2, king: false }},
-        { id: 17, x: 1, y: 4, piece: null}
-      ];
-      let gameState = fixtures('gameState', {squares: squares});
-      let fromId = 1;
-      let toIds = [];
-      let proposedToId = 10;
-      let move = new Move({fromId: fromId, toIds: toIds, proposedToId: proposedToId, gameState: gameState});
-      expect(move.complete).toBe(false);
+    describe('piece cannot move', () => {
+      it('must return a move impossible result', () => {
+        let match = fixtures('match');
+        let move = new Move({
+          match: match,
+          touchedSquareId: 5,
+          playerNumber: 1 
+        });
+        expect(move.result.name).toEqual('MoveImpossible');
+        expect(move.result.message).toEqual('That piece cannot move.');
+      });
     });
 
-    it("returns true if jump type and it cannot continue", () => {
-      let squares = [
-        { id: 1, x: 1, y: 0, piece: { id: 1, player_number: 1, king: false }},
-        { id: 6, x: 2, y: 1, piece: { id: 13, player_number: 2, king: false }},
-        { id: 10, x: 3, y: 2, piece: null},
-        { id: 14, x: 2, y: 3, piece: { id: 14, player_number: 2, king: false }},
-        { id: 17, x: 1, y: 4, piece: null}
-      ];
-      let gameState = fixtures('gameState', { squares: squares });
-      let fromId = 1;
-      let toIds = [10];
-      let proposedToId = 17;
-      let move = new Move({fromId: fromId, toIds: toIds, proposedToId: proposedToId, gameState: gameState});
-      expect(move.complete).toBe(true);
+    describe('piece is not owned by player', () => {
+      it('must return a not players piece error', () => {
+        let match = fixtures('match');
+        let move = new Move({
+          match: match,
+          touchedSquareId: 21,
+          playerNumber: 1 
+        });
+        expect(move.result.name).toEqual('NotPlayersPiece');
+        expect(move.result.message).toEqual('That piece is not yours.');
+      }); 
     });
-  }); 
+
+    describe('square is empty', () => {
+      it('must return a square is empty error', () => {
+        let match = fixtures('match');
+        let move = new Move({
+          match: match,
+          touchedSquareId: 13,
+          playerNumber: 1 
+        });
+        expect(move.result.name).toEqual('EmptySquare');
+        expect(move.result.message).toEqual('That square is empty.');
+      });
+    });
+
+    describe('move is move type and complete', () => {
+      it('must return a move compelte result', () => {
+        let match = fixtures('selectedSquareMatch');
+        let move = new Move({
+          match: match,
+          touchedSquareId: 16,
+          playerNumber: 1 
+        });
+
+        expect(move.result.name).toEqual('MoveComplete');
+        expect(move.result.message).toEqual('');
+      });
+    });
+
+    describe('move is jump type and complete', () => {
+      it('must return a move compelte result', () => {
+        let match = fixtures('doubleJumpAlmostCompleteMatch');
+        let move = new Move({
+          match: match,
+          touchedSquareId: 19,
+          playerNumber: 1 
+        });
+
+        expect(move.result.name).toEqual('MoveComplete');
+        expect(move.result.message).toEqual('');
+      });
+    });
+
+    describe('move is jump type and not complete', () => {
+      it('must return a move compelte result', () => {
+        let match = fixtures('doubleJumpMatch');
+        let move = new Move({
+          match: match,
+          touchedSquareId: 10,
+          playerNumber: 1 
+        });
+
+        expect(move.result.name).toEqual('MoveIncomplete');
+        expect(move.result.message).toEqual('Piece can still jump.');
+      });
+    });
+
+    describe('move is invalid', () => {
+      it('must return a move invalid result', () => {
+        let match = fixtures('selectedSquareMatch');
+        let move = new Move({
+          match: match,
+          touchedSquareId: 19,
+          playerNumber: 1 
+        });
+
+        expect(move.result.name).toEqual('MoveInvalid');
+        expect(move.result.message).toEqual('Move is invalid.');
+      });
+    });
+  });
 });

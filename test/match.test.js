@@ -196,7 +196,7 @@ describe("Match", () => {
           it('notifies with a message', () => {
             let match = fixtures('doubleJumpMatch');
             match.touchSquare(10, 1);
-            expect(match.notification).toEqual('Piece can continue to jump.');
+            expect(match.notification).toEqual('Piece can still jump.');
           });
         });
       });
@@ -218,7 +218,7 @@ describe("Match", () => {
         it('notifies with a message', () => {
           let match = fixtures('selectedSquareMatch');
           match.touchSquare(13, 1);
-          expect(match.notification).toBe('Move is not valid.');
+          expect(match.notification).toBe('Move is invalid.');
         });
       });
     });
