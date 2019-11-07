@@ -310,7 +310,7 @@ describe("SquareSet", () => {
   describe('unmarkSquares', () => {
     it('must unmark all squares', () => {
       let squares = fixtures('withMarkedSquareSet');
-      squares.deselectSquares();
+      squares.unmarkSquares();
       let square = squares.filter(function(s) { return s.marked; }).first;
       expect(square).toBe(undefined);
     });

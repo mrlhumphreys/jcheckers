@@ -157,6 +157,41 @@ describe('GameState', () => {
     }); 
   });
 
+  describe('move', () => {
+    it('moves the piece', () => {
+      let gameState = fixtures('doubleJumpAlmostCompleteGameState'); 
+      gameState.move(1, [10, 19]);
+      let from = gameState.squares.findSquareById(1);
+      let to = gameState.squares.findSquareById(19);
+
+      expect(from.piece).toBe(null);
+      expect(to.piece.id).toEqual(1);
+    });
+
+    it('deselects the square', () => {
+      let gameState = fixtures('doubleJumpAlmostCompleteGameState'); 
+      gameState.move(1, [10, 19]);
+      let to = gameState.squares.findSquareById(19);
+
+      expect(to.piece.selected).toBe(false);
+    });
+    
+    it('passes the turn', () => {
+      let gameState = fixtures('doubleJumpAlmostCompleteGameState'); 
+      gameState.move(1, [10, 19]);
+
+      expect(gameState.currentPlayerNumber).toEqual(2);
+    });
+
+    it('unmarks the square', () => {
+      let gameState = fixtures('doubleJumpAlmostCompleteGameState'); 
+      gameState.move(1, [10, 19]);
+      let between = gameState.squares.findSquareById(10);
+
+      expect(between.marked).toBe(false);
+    });
+  });
+
   describe('movePieces', () => {
     describe('with a move', () => {
       it('moves the piece', () => {

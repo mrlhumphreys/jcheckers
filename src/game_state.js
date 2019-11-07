@@ -1,5 +1,4 @@
-import eachCons from './each_cons'
-import exists from './exists'
+import { eachCons, exists } from './utils'
 import SquareSet from './square_set'
 
 class GameState {
@@ -59,6 +58,13 @@ class GameState {
 
   unmarkSquares() {
     this.squares.unmarkSquares();
+  }
+
+  move(fromId, toIds) {
+    this.movePieces(fromId, toIds);
+    this.deselectSquares();
+    this.passTurn();
+    this.unmarkSquares();
   }
 
   movePieces(fromId, toIds) {

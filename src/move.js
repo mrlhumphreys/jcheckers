@@ -1,5 +1,4 @@
-import eachCons from './each_cons'
-import exists from './exists'
+import { eachCons, exists } from './utils'
 import Vector from './vector'
 
 class Move {
@@ -11,98 +10,62 @@ class Move {
 
   get result() {
     if (this._gameOver) {
-      return this._gameOverResult; 
+      return { name: 'GameOver', message: 'Game is over.' };
     }
     if (this._notPlayersTurn) {
-      return this._notPlayersTurnResult;
+      return { name: 'NotPlayersTurn', message: 'It is not your turn.' };
     }
 
     if (exists(this.match.gameState.selectedSquare)) {
       if (this._moveValid) {
         if (this._moveComplete) {
-          return this._moveCompleteResult;
+          return { name: 'MoveComplete', message: '' };
         } else {
-          return this._moveIncompleteResult;
+          return { name: 'MoveIncomplete', message: 'Piece can still jump.' };
         }
       } else {
-        return this._moveInvalidResult;
+        return { name: 'MoveInvalid', message: 'Move is invalid.' };
       }
     } else {
       if (this._emptySquare) {
-        return this._emptySquareResult;
+        return { name: 'EmptySquare', message: 'That square is empty.' };
       }
       if (this._notPlayersPiece) {
-        return this._notPlayersPieceResult;
+        return { name: 'NotPlayersPiece', message: 'That piece is not yours.' };
       }
       if (this._movePossible) {
-        return this._movePossibleResult;
+        return { name: 'MovePossible', message: '' };
       } else {
-        return this._moveImpossibleResult;
+        return { name: 'MoveImpossible', message: 'That piece cannot move.' };
       }
     }
-  }
-
-  get _gameOverResult() {
-    return { name: 'GameOver', message: 'Game is over.' };
   }
 
   get _gameOver() {
     return exists(this.match.winner);
   } 
 
-  get _notPlayersTurnResult() {
-    return { name: 'NotPlayersTurn', message: 'It is not your turn.' };
-  }
-
   get _notPlayersTurn() {
     return !this.match.gameState.playersTurn(this.playerNumber);
   } 
-
-  get _movePossibleResult() {
-    return { name: 'MovePossible', message: '' };
-  }
 
   get _movePossible() {
     return this._touchedSquare.selectable(this.match.gameState.squares);
   } 
 
-  get _moveImpossibleResult() {
-    return { name: 'MoveImpossible', message: 'That piece cannot move.' };
-  }
-
-  get _notPlayersPieceResult() {
-    return { name: 'NotPlayersPiece', message: 'That piece is not yours.' };
-  }
-
   get _notPlayersPiece() {
     return this._touchedSquare.piece.playerNumber !== this.playerNumber; 
   } 
 
-  get _emptySquareResult() {
-    return { name: 'EmptySquare', message: 'That square is empty.' };
-  }
-
   get _emptySquare() {
     return !exists(this._touchedSquare.piece); 
   } 
-
-  get _moveCompleteResult() {
-    return { name: 'MoveComplete', message: '' };
-  }
-
-  get _moveIncompleteResult() {
-    return { name: 'MoveIncomplete', message: 'Piece can still jump.' };
-  }
 
   get _moveComplete() {
     let legs = this._legs(this._from, this._tos, this._touchedSquare);
     let lastLeg = this._lastLeg(legs);
 
     return (this._moveType(lastLeg) || (this._jumpType(lastLeg) && this._lastLegEnd(this._from.piece, this._touchedSquare, this._tos)));
-  }
-
-  get _moveInvalidResult() {
-    return { name: 'MoveInvalid', message: 'Move is invalid.' };
   }
 
   get _moveValid() {

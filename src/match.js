@@ -1,5 +1,5 @@
 import { buildPlayers, buildLastAction, buildNotification, winner, asJson } from '@mrlhumphreys/jboardgame'
-import exists from './exists';
+import { exists } from './utils';
 import GameState from './game_state';
 import Move from './move';
 
@@ -54,12 +54,9 @@ class Match {
       case 'MoveComplete':
         let fromId = this.currentMoveFromId;
         let toIds = this.currentMoveToIds.concat([squareId]);
-        this.gameState.movePieces(fromId, toIds);
-        this._clearMove();
-        this.gameState.deselectSquares();
-        this.gameState.passTurn();
-        this.gameState.unmarkSquares();
+        this.gameState.move(fromId, toIds);
         this._addMoveToLastAction(fromId, toIds);
+        this._clearMove();
         this._notify(buildNotification(this));
         break;
       case 'MovePossible':

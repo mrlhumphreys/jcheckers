@@ -1,4 +1,4 @@
-import exists from './exists';
+import { exists } from './utils';
 import Point from './point';
 import Piece from './piece';
 
@@ -8,7 +8,7 @@ class Square {
     this.id = args.id;
     this.x = args.x;
     this.y = args.y;
-    this.marked = false;
+    this.marked = exists(args.marked) ? args.marked : false;
     this.piece = exists(args.piece) ? new Piece(args.piece) : null;
   }
 
