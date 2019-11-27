@@ -111,7 +111,7 @@ class Move {
   }
 
   _lastLegEnd(piece, lastSquare, toSquares) {
-    return lastSquare.possibleJumps(piece, this.match.gameState.squares).difference(toSquares).empty;
+    return lastSquare.possibleJumps(piece, this.match.gameState.squares).difference(toSquares).none();
   }
 }
 

@@ -6,16 +6,16 @@ import {
   length,
   map, 
   squaresAsJson, 
-  include, 
+  includes, 
   difference,
   first,
   last,
   many,
-  any,
-  empty,
+  some,
+  none,
   filter,
   occupiedByOpponentOf,
-  occupiedBy,
+  occupiedByPlayer,
   occupied,
   unoccupied,
   squaresAwayFrom,
@@ -66,8 +66,8 @@ class SquareSet {
     return map(this, callback);
   }
 
-  include(square) {
-    return include(this, square);
+  includes(square) {
+    return includes(this, square);
   }
 
   difference(squareSet) {
@@ -86,12 +86,12 @@ class SquareSet {
     return many(this);
   }
 
-  get any() {
-    return any(this);
+  some(callback) {
+    return some(this, callback);
   }
 
-  get empty() {
-    return empty(this);
+  none(callback) {
+    return none(this, callback);
   }
 
   filter(callback) {
@@ -102,8 +102,8 @@ class SquareSet {
     return occupiedByOpponentOf(this, playerNumber);
   }
 
-  occupiedBy(playerNumber) {
-    return occupiedBy(this, playerNumber);
+  occupiedByPlayer(playerNumber) {
+    return occupiedByPlayer(this, playerNumber);
   }
 
   get occupied() {
@@ -131,21 +131,21 @@ class SquareSet {
   }
 
   allMovesForPlayer(playerNumber) {
-    let playerSquares = this.occupiedBy(playerNumber);
+    let playerSquares = this.occupiedByPlayer(playerNumber);
     let jumps = playerSquares.allPossibleJumps(this); 
     let moves = playerSquares.allPossibleMoves(this); 
-    return (jumps.any ? jumps : moves);
+    return (jumps.some() ? jumps : moves);
   }
 
   allPossibleMoves(squares) {
     return this.filter((s) => {
-      return s.possibleMoves(s.piece, squares).any;
+      return s.possibleMoves(s.piece, squares).some();
     });
   }
 
   allPossibleJumps(squares) {
     return this.filter((s) => {
-      return s.possibleJumps(s.piece, squares).any;
+      return s.possibleJumps(s.piece, squares).some();
     });
   }
 

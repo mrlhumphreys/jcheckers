@@ -1203,7 +1203,7 @@ const fixtureDefinitions = {
     klass: SquareSet,
     args: {
       "squares": [
-        {"x":1,"y":1,"piece":{"player_number":2,"direction":-1,"king":false}}
+        {id: 1, "x":1,"y":1,"piece":{"player_number":2,"direction":-1,"king":false}}
       ]
     }
   },

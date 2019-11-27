@@ -31,18 +31,18 @@ describe("Square", () => {
     });
   });
 
-  describe('occupiedBy', () => {
+  describe('occupiedByPlayer', () => {
     describe('when piece is owned by the player', () => {
       it('must return true', () => {
         let square = fixtures('square', { piece: { player_number: 1 }});
-        expect(square.occupiedBy(1)).toBe(true);
+        expect(square.occupiedByPlayer(1)).toBe(true);
       });
     });
 
     describe('when piece is not owned by the player', () => {
       it('must return false', () => {
         let square = fixtures('square', { piece: { player_number: 2 }});
-        expect(square.occupiedBy(1)).toBe(false);
+        expect(square.occupiedByPlayer(1)).toBe(false);
       });
     });
   });
@@ -172,7 +172,7 @@ describe("Square", () => {
     it("must have some possible moves", () => {
       let squares = fixtures('possibleMovesSquareSet');
       let square = squares.findSquare(2, 5);
-      expect(square.possibleMoves(square.piece, squares).any).toBe(true);
+      expect(square.possibleMoves(square.piece, squares).some()).toBe(true);
     });
   });
 
@@ -180,7 +180,7 @@ describe("Square", () => {
     it("must not have any possible moves", () => {
       let squares = fixtures('noPossibleMovesSquareSet');
       let square = squares.findSquare(2, 5);
-      expect(square.possibleMoves(square.piece, squares).any).toBe(false);
+      expect(square.possibleMoves(square.piece, squares).some()).toBe(false);
     });
   });
 
@@ -188,7 +188,7 @@ describe("Square", () => {
     it("must have possible jumps", () => {
       let squares = fixtures('possibleJumpsSquareSet');
       let square = squares.findSquare(2, 5);
-      expect(square.possibleJumps(square.piece, squares).any).toBe(true);
+      expect(square.possibleJumps(square.piece, squares).some()).toBe(true);
     });
   });
 
@@ -196,7 +196,7 @@ describe("Square", () => {
     it("must not have possible jumps", () => {
       let squares = fixtures('noPossibleJumpsSquareSet');
       let square = squares.findSquare(2, 5);
-      expect(square.possibleJumps(square.piece, squares).any).toBe(false);
+      expect(square.possibleJumps(square.piece, squares).some()).toBe(false);
     });
   });
 
@@ -204,7 +204,7 @@ describe("Square", () => {
     it("must not have possible jumps", () => {
       let squares = fixtures('noPossibleJumpsSquareSet');
       let square = squares.findSquare(7, 6);
-      expect(square.possibleJumps(square.piece, squares).any).toBe(false);
+      expect(square.possibleJumps(square.piece, squares).some()).toBe(false);
     });
   });
 

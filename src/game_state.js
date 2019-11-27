@@ -19,9 +19,9 @@ class GameState {
   }
 
   get winner() {
-    if (this.squares.allMovesForPlayer(1).empty) {
+    if (this.squares.allMovesForPlayer(1).none()) {
       return 2;
-    } else if (this.squares.allMovesForPlayer(2).empty) {
+    } else if (this.squares.allMovesForPlayer(2).none()) {
       return 1;
     } else {
       return null;

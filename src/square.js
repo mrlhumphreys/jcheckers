@@ -29,10 +29,10 @@ class Square {
 
   selectable(squares) {
     if (exists(this.piece)) {
-      if (squares.occupiedBy(this.piece.playerNumber).allPossibleJumps(squares).any) {
-        return this.possibleJumps(this.piece, squares).any;
+      if (squares.occupiedByPlayer(this.piece.playerNumber).allPossibleJumps(squares).some()) {
+        return this.possibleJumps(this.piece, squares).some();
       } else {
-        return this.possibleMoves(this.piece, squares).any;
+        return this.possibleMoves(this.piece, squares).some();
       }
     } else {
       return false;
@@ -40,9 +40,9 @@ class Square {
   }
 
   actionable(piece, to, squares) {
-    let noPossibleJumps = this.possibleJumps(piece, squares).empty;
-    let canMoveToTo = this.possibleMoves(piece, squares).include(to);
-    let canJumpToTo = this.possibleJumps(piece, squares).include(to);
+    let noPossibleJumps = this.possibleJumps(piece, squares).none();
+    let canMoveToTo = this.possibleMoves(piece, squares).includes(to);
+    let canJumpToTo = this.possibleJumps(piece, squares).includes(to);
     return (noPossibleJumps && canMoveToTo) || canJumpToTo;
   }
 
@@ -52,7 +52,7 @@ class Square {
 
   possibleJumps(piece, squares) {
     return squares.squaresAwayFrom(2, this).inDirectionOf(piece, this).unoccupied.filter((s) => {
-      return squares.between(this, s).occupiedByOpponentOf(piece.playerNumber).any;
+      return squares.between(this, s).occupiedByOpponentOf(piece.playerNumber).some();
     });
   }
 
@@ -60,7 +60,7 @@ class Square {
     return this.piece != null;
   }
 
-  occupiedBy(playerNumber) {
+  occupiedByPlayer(playerNumber) {
     return exists(this.piece) && (this.piece.playerNumber === playerNumber);
   }
 

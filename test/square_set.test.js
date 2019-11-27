@@ -108,7 +108,7 @@ describe("SquareSet", () => {
     it("must include square", () => {
       let squares = fixtures('withSquareSquareSet');
       let square = squares.findSquare(1, 1);
-      expect(squares.include(square)).toBe(true);
+      expect(squares.includes(square)).toBe(true);
     });
   });
 
@@ -122,31 +122,31 @@ describe("SquareSet", () => {
     it("must include square", () => {
       let squares = fixtures('withSquareSquareSet');
       let square = squares.findSquare(2, 2);
-      expect(squares.include(square)).toBe(false);
+      expect(squares.includes(square)).toBe(false);
     });
   });
 
   describe("a set with some squares", () => {
     it("must have any", () => {
       let squares = fixtures('withSquareSquareSet');
-      expect(squares.any).toBe(true);
+      expect(squares.some()).toBe(true);
     });
 
     it("must not be empty", () => {
       let squares = fixtures('withSquareSquareSet');
-      expect(squares.empty).toBe(false);
+      expect(squares.none()).toBe(false);
     });
   });
 
   describe("a set with no squares", () => {
     it("must be empty", () => {
       let squares = fixtures('withNoSquareSquareSet');
-      expect(squares.empty).toBe(true);
+      expect(squares.none()).toBe(true);
     });
 
     it("must not have any", () => {
       let squares = fixtures('withNoSquareSquareSet');
-      expect(squares.any).toBe(false);
+      expect(squares.some()).toBe(false);
     });
   });
 
@@ -200,7 +200,7 @@ describe("SquareSet", () => {
     it('must not return squares excluded', () => {
       let squares = fixtures('withSquareSquareSet');
       let excluded = fixtures('withSquareSquareSet');
-      expect(squares.difference(excluded).any).toBe(false);
+      expect(squares.difference(excluded).some()).toBe(false);
     });
   });
 
@@ -216,14 +216,14 @@ describe("SquareSet", () => {
     describe('with jumps', () => {
       it('must return all jumps for the specified player', () => {
         let squares = fixtures('possibleJumpsSquareSet');
-        expect(squares.allMovesForPlayer(1).any).toBe(true);
+        expect(squares.allMovesForPlayer(1).some()).toBe(true);
       });
     });
 
     describe('with no jumps', () => {
       it('must return all moves for the specified player', () => {
         let squares = fixtures('possibleMovesSquareSet');
-        expect(squares.allMovesForPlayer(1).any).toBe(true);
+        expect(squares.allMovesForPlayer(1).some()).toBe(true);
       });
     });
   });
@@ -231,14 +231,14 @@ describe("SquareSet", () => {
   describe('allPossibleMoves', () => {
     it('must return all squares that can possibly move', () => {
       let squares = fixtures('possibleMovesSquareSet');
-      expect(squares.allPossibleMoves(squares).any).toBe(true);
+      expect(squares.allPossibleMoves(squares).some()).toBe(true);
     });
   });
 
   describe("allPossibleJumps", () => {
     it("must return all squares that can possibly jump", () => {
       let squares = fixtures('possibleJumpsSquareSet');
-      expect(squares.allPossibleJumps(squares).any).toBe(true);
+      expect(squares.allPossibleJumps(squares).some()).toBe(true);
     });
   });
 
@@ -246,7 +246,7 @@ describe("SquareSet", () => {
     it("must return all squares occupied by the opponent of the player", () => {
       let playerNumber = 1;
       let squares = fixtures('withSquareSquareSet');
-      expect(squares.occupiedByOpponentOf(playerNumber).any).toBe(true);
+      expect(squares.occupiedByOpponentOf(playerNumber).some()).toBe(true);
     });
   });
 
@@ -255,7 +255,7 @@ describe("SquareSet", () => {
       let squares = fixtures('withNeighboursSquareSet');
       let square = squares.findSquare(1, 1);
       let number = 2;
-      expect(squares.squaresAwayFrom(2, square).any).toBe(true);
+      expect(squares.squaresAwayFrom(2, square).some()).toBe(true);
     });
   });
 
@@ -263,7 +263,7 @@ describe("SquareSet", () => {
     it("must return all squares two squares away from the square", () => {
       let squares = fixtures('withNeighboursSquareSet');
       let square = squares.findSquare(1, 1);
-      expect(squares.twoSquaresAwayFrom(square).any).toBe(true);
+      expect(squares.twoSquaresAwayFrom(square).some()).toBe(true);
     });
   });
 
@@ -271,7 +271,7 @@ describe("SquareSet", () => {
     it("must return all squares one squares away from the square", () => {
       let squares = fixtures('withNeighboursSquareSet');
       let square = squares.findSquare(1, 1);
-      expect(squares.oneSquareAwayFrom(square).any).toBe(true);
+      expect(squares.oneSquareAwayFrom(square).some()).toBe(true);
     });
   });
 
@@ -279,7 +279,7 @@ describe("SquareSet", () => {
     it("must return all squares in the piece's player's direction", () => {
       let squares = fixtures('withNeighboursSquareSet');
       let square = squares.findSquare(3, 3);
-      expect(squares.inDirectionOf(square.piece, square).any).toBe(true);
+      expect(squares.inDirectionOf(square.piece, square).some()).toBe(true);
     });
   });
 
@@ -288,14 +288,14 @@ describe("SquareSet", () => {
       let squares = fixtures('withNeighboursSquareSet');
       let from = squares.findSquare(3, 3);
       let to = squares.findSquare(1, 1);
-      expect(squares.between(from, to).any).toBe(true);
+      expect(squares.between(from, to).some()).toBe(true);
     });
   });
 
   describe("unoccupied", () => {
     it("must return all squares with no pieces", () => {
       let squares = fixtures('withEmptySquareSquareSet');
-      expect(squares.unoccupied.any).toBe(true);
+      expect(squares.unoccupied.some()).toBe(true);
     });
   });
 
