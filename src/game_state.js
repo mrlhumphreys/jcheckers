@@ -10,12 +10,12 @@ class GameState {
   get asJson() {
     return {
       current_player_number: this.currentPlayerNumber,
-      squares: this.squares.asJson.squares 
+      squares: this.squares.asJson().squares 
     };
   }
 
   get selectedSquare() {
-    return this.squares.selectedSquare;
+    return this.squares.selected();
   }
 
   get winner() {
@@ -29,7 +29,7 @@ class GameState {
   }
 
   findSquareById(id) {
-    return this.squares.findSquareById(id);
+    return this.squares.findById(id);
   }
 
   playersTurn(playerNumber) {
@@ -74,7 +74,7 @@ class GameState {
     let legs = [];
 
     if (tos.constructorName === "SquareSet") {
-      tos.last.piece = piece;
+      tos.last().piece = piece;
       legs = [from].concat(tos.squares);
     } else {
       tos.piece = piece;
@@ -84,15 +84,15 @@ class GameState {
     from.piece = null;
 
     eachCons(legs,2).forEach((leg) => {
-      let between = this.squares.between(leg[0], leg[1]).first; 
+      let between = this.squares.between(leg[0], leg[1]).first(); 
       if (exists(between)) {
         between.piece = null;
       }
     });
 
     if (tos.constructorName === "SquareSet") {
-      if (tos.last.lastRankForPlayer(this.currentPlayerNumber)) {
-        tos.last.promote();
+      if (tos.last().lastRankForPlayer(this.currentPlayerNumber)) {
+        tos.last().promote();
       }  
     } else {
       if (tos.lastRankForPlayer(this.currentPlayerNumber)) {

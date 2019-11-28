@@ -104,7 +104,7 @@ describe("Match", () => {
   describe("findSquareById", () => {
     it("returns the square with the matching id", () => {
       let match = fixtures('match');
-      let square = match.gameState.squares.findSquareById(1);
+      let square = match.gameState.squares.findById(1);
       expect(match.gameState.findSquareById(1)).toEqual(square);
     }); 
   });
@@ -155,7 +155,7 @@ describe("Match", () => {
           it('unmark squares', () => {
             let match = fixtures('doubleJumpAlmostCompleteMatch');
             match.touchSquare(19, 1); 
-            let square = match.gameState.squares.filter(function(s) { return s.marked; }).first;
+            let square = match.gameState.squares.filter(function(s) { return s.marked; }).first();
             expect(square).toBe(undefined);
           });
 

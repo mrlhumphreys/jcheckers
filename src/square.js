@@ -47,11 +47,11 @@ class Square {
   }
 
   possibleMoves(piece, squares) {
-    return squares.squaresAwayFrom(1, this).inDirectionOf(piece, this).unoccupied;
+    return squares.squaresAwayFrom(1, this).inDirectionOf(piece, this).unoccupied();
   }
 
   possibleJumps(piece, squares) {
-    return squares.squaresAwayFrom(2, this).inDirectionOf(piece, this).unoccupied.filter((s) => {
+    return squares.squaresAwayFrom(2, this).inDirectionOf(piece, this).unoccupied().filter((s) => {
       return squares.between(this, s).occupiedByOpponentOf(piece.playerNumber).some();
     });
   }

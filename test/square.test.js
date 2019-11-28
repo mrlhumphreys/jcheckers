@@ -90,7 +90,7 @@ describe("Square", () => {
   describe("Another piece must jump", () => {
     it("must not be selectable", () => {
       let squares = fixtures('mustJumpSquareSet');
-      let square = squares.findSquare(6, 5);
+      let square = squares.findByCoordinate(6, 5);
       expect(square.selectable(squares)).toBe(false);
     });
   });
@@ -99,7 +99,7 @@ describe("Square", () => {
     describe("piece has empty square forward", () => {
       it("must be selectable", () => {
         let squares = fixtures('noJumpSquareSet');
-        let square = squares.findSquare(6, 5);
+        let square = squares.findByCoordinate(6, 5);
         expect(square.selectable(squares)).toBe(true);
       });
     });
@@ -107,7 +107,7 @@ describe("Square", () => {
     describe("piece is blocked", () => {
       it("must not be selectable", () => {
         let squares = fixtures('noJumpSquareSet');
-        let square = squares.findSquare(6, 7);
+        let square = squares.findByCoordinate(6, 7);
         expect(square.selectable(squares)).toBe(false);
       });
     });
@@ -115,7 +115,7 @@ describe("Square", () => {
     describe("piece has jumpable enemy", () => {
       it("must be selectable", () => {
         let squares = fixtures('mustJumpSquareSet');
-        let square = squares.findSquare(2, 5);
+        let square = squares.findByCoordinate(2, 5);
         expect(square.selectable(squares)).toBe(true);
       });
     });
@@ -125,8 +125,8 @@ describe("Square", () => {
     describe("attempting to move to an empty square nearby", () => {
       it("must be actionable", () => {
         let squares = fixtures('selectedNoJumpSquareSet');
-        let square = squares.findSquare(2, 5);
-        let to = squares.findSquare(3, 4);
+        let square = squares.findByCoordinate(2, 5);
+        let to = squares.findByCoordinate(3, 4);
         expect(square.actionable(square.piece, to, squares)).toBe(true);
       });
     });
@@ -134,8 +134,8 @@ describe("Square", () => {
     describe("attempting to jump an enemy piece", () => {
       it("must be actionable", () => {
         let squares = fixtures('selectedMustJumpSquareSet');
-        let square = squares.findSquare(2, 5);
-        let to = squares.findSquare(4, 3);
+        let square = squares.findByCoordinate(2, 5);
+        let to = squares.findByCoordinate(4, 3);
         expect(square.actionable(square.piece, to, squares)).toBe(true);
       });
     });
@@ -143,8 +143,8 @@ describe("Square", () => {
     describe("attempting to move too far", () => {
       it("must not be actionable", () => {
         let squares = fixtures('selectedNoJumpSquareSet');
-        let square = squares.findSquare(2, 5);
-        let to = squares.findSquare(4, 3);
+        let square = squares.findByCoordinate(2, 5);
+        let to = squares.findByCoordinate(4, 3);
         expect(square.actionable(square.piece, to, squares)).toBe(false);
       });
     });
@@ -152,8 +152,8 @@ describe("Square", () => {
     describe("attempting to move the wrong direction", () => {
       it("must not be actionable", () => {
         let squares = fixtures('selectedNoJumpSquareSet');
-        let square = squares.findSquare(2, 5);
-        let to = squares.findSquare(3, 6);
+        let square = squares.findByCoordinate(2, 5);
+        let to = squares.findByCoordinate(3, 6);
         expect(square.actionable(square.piece, to, squares)).toBe(false);
       });
     });
@@ -161,8 +161,8 @@ describe("Square", () => {
     describe("attempting to move to a blocked square", () => {
       it("must not be actionable", () => {
         let squares = fixtures('selectedNoJumpSquareSet');
-        let square = squares.findSquare(2, 5);
-        let to = squares.findSquare(1, 4);
+        let square = squares.findByCoordinate(2, 5);
+        let to = squares.findByCoordinate(1, 4);
         expect(square.actionable(square.piece, to, squares)).toBe(false);
       });
     });
@@ -171,7 +171,7 @@ describe("Square", () => {
   describe("a square with empty squares beside it", () => {
     it("must have some possible moves", () => {
       let squares = fixtures('possibleMovesSquareSet');
-      let square = squares.findSquare(2, 5);
+      let square = squares.findByCoordinate(2, 5);
       expect(square.possibleMoves(square.piece, squares).some()).toBe(true);
     });
   });
@@ -179,7 +179,7 @@ describe("Square", () => {
   describe("a square with no empty squares beside it", () => {
     it("must not have any possible moves", () => {
       let squares = fixtures('noPossibleMovesSquareSet');
-      let square = squares.findSquare(2, 5);
+      let square = squares.findByCoordinate(2, 5);
       expect(square.possibleMoves(square.piece, squares).some()).toBe(false);
     });
   });
@@ -187,7 +187,7 @@ describe("Square", () => {
   describe("a selected square with enemy pieces nearby with empty squares behind them", () => {
     it("must have possible jumps", () => {
       let squares = fixtures('possibleJumpsSquareSet');
-      let square = squares.findSquare(2, 5);
+      let square = squares.findByCoordinate(2, 5);
       expect(square.possibleJumps(square.piece, squares).some()).toBe(true);
     });
   });
@@ -195,7 +195,7 @@ describe("Square", () => {
   describe("a selected square with enemy pieces nearby with blocked squares behind them", () => {
     it("must not have possible jumps", () => {
       let squares = fixtures('noPossibleJumpsSquareSet');
-      let square = squares.findSquare(2, 5);
+      let square = squares.findByCoordinate(2, 5);
       expect(square.possibleJumps(square.piece, squares).some()).toBe(false);
     });
   });
@@ -203,7 +203,7 @@ describe("Square", () => {
   describe("a selected square with no enemy pieces nearby", () => {
     it("must not have possible jumps", () => {
       let squares = fixtures('noPossibleJumpsSquareSet');
-      let square = squares.findSquare(7, 6);
+      let square = squares.findByCoordinate(7, 6);
       expect(square.possibleJumps(square.piece, squares).some()).toBe(false);
     });
   });

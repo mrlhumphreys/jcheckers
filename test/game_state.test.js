@@ -85,7 +85,7 @@ describe('GameState', () => {
   describe('findSquareById', () => {
     it('returns the square with the matching id', () => {
       let gameState = fixtures('gameState');
-      let square = gameState.squares.findSquareById(1);
+      let square = gameState.squares.findById(1);
       expect(gameState.findSquareById(1)).toEqual(square);
     });
   });  
@@ -143,7 +143,7 @@ describe('GameState', () => {
       it('must not do anything', () => {
         let gameState = fixtures('gameState');
         gameState.markSquare(33);
-        expect(gameState.squares.filter(function(s) { return s.marked; }).first).toBe(undefined);
+        expect(gameState.squares.filter(function(s) { return s.marked; }).first()).toBe(undefined);
       });
     });
   });
@@ -152,7 +152,7 @@ describe('GameState', () => {
     it('must unmark all squares', () => {
       let gameState = fixtures('markedSquareGameState');
       gameState.unmarkSquares();
-      let square = gameState.squares.filter(function(s) { return s.marked; }).first;
+      let square = gameState.squares.filter(function(s) { return s.marked; }).first();
       expect(square).toBe(undefined);
     }); 
   });
@@ -161,8 +161,8 @@ describe('GameState', () => {
     it('moves the piece', () => {
       let gameState = fixtures('doubleJumpAlmostCompleteGameState'); 
       gameState.move(1, [10, 19]);
-      let from = gameState.squares.findSquareById(1);
-      let to = gameState.squares.findSquareById(19);
+      let from = gameState.squares.findById(1);
+      let to = gameState.squares.findById(19);
 
       expect(from.piece).toBe(null);
       expect(to.piece.id).toEqual(1);
@@ -171,7 +171,7 @@ describe('GameState', () => {
     it('deselects the square', () => {
       let gameState = fixtures('doubleJumpAlmostCompleteGameState'); 
       gameState.move(1, [10, 19]);
-      let to = gameState.squares.findSquareById(19);
+      let to = gameState.squares.findById(19);
 
       expect(to.piece.selected).toBe(false);
     });
@@ -186,7 +186,7 @@ describe('GameState', () => {
     it('unmarks the square', () => {
       let gameState = fixtures('doubleJumpAlmostCompleteGameState'); 
       gameState.move(1, [10, 19]);
-      let between = gameState.squares.findSquareById(10);
+      let between = gameState.squares.findById(10);
 
       expect(between.marked).toBe(false);
     });

@@ -36,98 +36,32 @@ class SquareSet {
         return new Square(s);
       }
     });
-  }
-
-  get asJson() {
-    return squaresAsJson(this);
-  }
-
-  findSquareById(id) {
-    return findById(this, id);
-  }
-
-  findSquare(x, y) {
-    return findByCoordinate(this, x, y);
-  }
-
-  get selectedSquare() {
-    return selected(this);
+    this.asJson = squaresAsJson;
+    this.findById = findById;
+    this.findByCoordinate = findByCoordinate;
+    this.selected = selected;
+    this.length = length;
+    this.map = map;
+    this.includes = includes;
+    this.difference = difference;
+    this.first = first;
+    this.last = last;
+    this.many = many;
+    this.some = some;
+    this.none = none;
+    this.filter = filter;
+    this.occupiedByOpponentOf = occupiedByOpponentOf;
+    this.occupiedByPlayer = occupiedByPlayer;
+    this.occupied = occupied;
+    this.unoccupied = unoccupied;
+    this.squaresAwayFrom = squaresAwayFrom;
+    this.twoSquaresAwayFrom = twoSquaresAwayFrom;
+    this.oneSquareAwayFrom = oneSquareAwayFrom;
+    this.between = between;
   }
 
   push(square) {
     this.squares.push(square);
-  }
-
-  get length() {
-    return length(this);
-  }
-
-  map(callback) {
-    return map(this, callback);
-  }
-
-  includes(square) {
-    return includes(this, square);
-  }
-
-  difference(squareSet) {
-    return difference(this, squareSet);
-  }
-
-  get first() {
-    return first(this);
-  }
-
-  get last() {
-    return last(this);
-  }
-
-  get many() {
-    return many(this);
-  }
-
-  some(callback) {
-    return some(this, callback);
-  }
-
-  none(callback) {
-    return none(this, callback);
-  }
-
-  filter(callback) {
-    return filter(this, callback);
-  }
-
-  occupiedByOpponentOf(playerNumber) {
-    return occupiedByOpponentOf(this, playerNumber);
-  }
-
-  occupiedByPlayer(playerNumber) {
-    return occupiedByPlayer(this, playerNumber);
-  }
-
-  get occupied() {
-    return occupied(this);
-  }
-
-  get unoccupied() {
-    return unoccupied(this);
-  }
-
-  squaresAwayFrom(number, from) {
-    return squaresAwayFrom(this, number, from);
-  }
-
-  twoSquaresAwayFrom(from) {
-    return twoSquaresAwayFrom(this, from);
-  }
-
-  oneSquareAwayFrom(from) {
-    return oneSquareAwayFrom(this, from);
-  }
-
-  between(a, b) {
-    return between(this, a, b);
   }
 
   allMovesForPlayer(playerNumber) {
