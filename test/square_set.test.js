@@ -35,7 +35,8 @@ describe("SquareSet", () => {
     it('must have more squares', () => {
       let squares = fixtures('withNoSquareSquareSet');
       let square = new Square({x: 7, y: 7});
-      squares.push(square);
+      let result = squares.push(square);
+      expect(result).toBe(true);
       expect(squares.squares.length).toBe(1);
     });
   });
@@ -81,7 +82,8 @@ describe("SquareSet", () => {
   describe('deselectSquares', () => {
     it('must deselect all squares', () => {
       let squares = fixtures('withSelectedSquareSet');
-      squares.deselectSquares();
+      let result = squares.deselectSquares();
+      expect(result).toBe(true);
       expect(squares.selected()).toBe(undefined);
     });
   });
@@ -89,8 +91,9 @@ describe("SquareSet", () => {
   describe('unmarkSquares', () => {
     it('must unmark all squares', () => {
       let squares = fixtures('withMarkedSquareSet');
-      squares.unmarkSquares();
+      let result = squares.unmarkSquares();
       let square = squares.filter(function(s) { return s.marked; }).first();
+      expect(result).toBe(true);
       expect(square).toBe(undefined);
     });
   });

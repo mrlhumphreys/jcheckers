@@ -106,8 +106,9 @@ describe('GameState', () => {
     describe('with a square that exists', () => {
       it('must mark the square as selected', () => {
         let gameState = fixtures('gameState');
-        gameState.selectSquare(9);
+        let result = gameState.selectSquare(9);
         let square = gameState.findSquareById(9);
+        expect(result).toBe(true);
         expect(square.piece.selected).toBe(true);
       });
     });
@@ -115,7 +116,8 @@ describe('GameState', () => {
     describe('with a square that does not exist', () => {
       it('must not do anything', () => {
         let gameState = fixtures('gameState');
-        gameState.selectSquare(33);
+        let result = gameState.selectSquare(33);
+        expect(result).toBe(false);
         expect(gameState.selectedSquare).toBe(undefined);
       });
     });
@@ -124,7 +126,8 @@ describe('GameState', () => {
   describe('deselectSquares', () => {
     it('must deselect all squares', () => {
       let gameState = fixtures('selectedSquareGameState');
-      gameState.deselectSquares();
+      let result = gameState.deselectSquares();
+      expect(result).toBe(true);
       expect(gameState.selectedSquare).toBe(undefined);
     }); 
   });
@@ -133,8 +136,9 @@ describe('GameState', () => {
     describe('with a square that exists', () => {
       it('must mark the square', () => {
         let gameState = fixtures('gameState');
-        gameState.markSquare(13);
+        let result = gameState.markSquare(13);
         let square = gameState.findSquareById(13);
+        expect(result).toBe(true);
         expect(square.marked).toBe(true);
       });
     });
@@ -142,7 +146,8 @@ describe('GameState', () => {
     describe('with a square that does not exist', () => {
       it('must not do anything', () => {
         let gameState = fixtures('gameState');
-        gameState.markSquare(33);
+        let result = gameState.markSquare(33);
+        expect(result).toBe(false);
         expect(gameState.squares.filter(function(s) { return s.marked; }).first()).toBe(undefined);
       });
     });
@@ -151,13 +156,20 @@ describe('GameState', () => {
   describe('unmarkSquares', () => {
     it('must unmark all squares', () => {
       let gameState = fixtures('markedSquareGameState');
-      gameState.unmarkSquares();
+      let result = gameState.unmarkSquares();
       let square = gameState.squares.filter(function(s) { return s.marked; }).first();
+      expect(result).toBe(true);
       expect(square).toBe(undefined);
     }); 
   });
 
   describe('move', () => {
+    it('returns the result', () => {
+      let gameState = fixtures('doubleJumpAlmostCompleteGameState'); 
+      let result = gameState.move(1, [10, 19]);
+      expect(result).toBe(true);
+    });
+
     it('moves the piece', () => {
       let gameState = fixtures('doubleJumpAlmostCompleteGameState'); 
       gameState.move(1, [10, 19]);
@@ -199,11 +211,12 @@ describe('GameState', () => {
         let fromId = 12;
         let toId = 16;
 
-        gameState.movePieces(fromId, toId);
+        let result = gameState.movePieces(fromId, toId);
 
         let from = gameState.findSquareById(fromId);
         let to = gameState.findSquareById(toId);
 
+        expect(result).toBe(true);
         expect(from.piece).toBe(null);
         expect(to.piece).not.toBe(null);
       });
@@ -215,10 +228,11 @@ describe('GameState', () => {
         let fromId = 25;
         let toId = 29; 
 
-        gameState.movePieces(fromId, toId);
+        let result = gameState.movePieces(fromId, toId);
 
         let to = gameState.findSquareById(toId);
 
+        expect(result).toBe(true);
         expect(to.piece.king).toBe(true);
       });
     });
@@ -229,11 +243,12 @@ describe('GameState', () => {
         let fromId = 1;
         let toId = 10;
 
-        gameState.movePieces(fromId, toId);
+        let result = gameState.movePieces(fromId, toId);
 
         let from = gameState.findSquareById(fromId);
         let to = gameState.findSquareById(toId);
 
+        expect(result).toBe(true);
         expect(from.piece).toBe(null);
         expect(to.piece).not.toBe(null);
       });
@@ -244,10 +259,11 @@ describe('GameState', () => {
         let betweenId = 6;
         let toId = 10;
 
-        gameState.movePieces(fromId, toId);
+        let result = gameState.movePieces(fromId, toId);
 
         let between = gameState.findSquareById(betweenId);
 
+        expect(result).toBe(true);
         expect(between.piece).toBe(null);
       });
     });
@@ -260,11 +276,12 @@ describe('GameState', () => {
         let lastToId = 19;
         let toIds = [midToId, lastToId];
 
-        gameState.movePieces(fromId, toIds);
+        let result = gameState.movePieces(fromId, toIds);
 
         let from = gameState.findSquareById(fromId);
         let lastTo = gameState.findSquareById(lastToId);
 
+        expect(result).toBe(true);
         expect(from.piece).toBe(null);
         expect(lastTo.piece).not.toBe(null);
       });
@@ -278,11 +295,12 @@ describe('GameState', () => {
         let lastToId = 19;
         let toIds = [midToId, lastToId];
 
-        gameState.movePieces(fromId, toIds);
+        let result = gameState.movePieces(fromId, toIds);
 
         let firstBetween = gameState.findSquareById(firstBetweenId);
         let secondBetween = gameState.findSquareById(secondBetweenId);
 
+        expect(result).toBe(true);
         expect(firstBetween.piece).toBe(null);
         expect(secondBetween.piece).toBe(null);
       });
@@ -293,7 +311,8 @@ describe('GameState', () => {
     describe('when current turn is player 1', () => {
       it('passes the turn to player 2', () => {
         let gameState = fixtures('gameState', { current_player_number: 1 });
-        gameState.passTurn(); 
+        let result = gameState.passTurn(); 
+        expect(result).toBe(true);
         expect(gameState.currentPlayerNumber).toEqual(2);
       });
     });
@@ -301,7 +320,8 @@ describe('GameState', () => {
     describe('when current turn is player 2', () => {
       it('passes the turn to player 1', () => {
         let gameState = fixtures('gameState', { current_player_number: 2 });
-        gameState.passTurn(); 
+        let result = gameState.passTurn(); 
+        expect(result).toBe(true);
         expect(gameState.currentPlayerNumber).toEqual(1);
       });
     });

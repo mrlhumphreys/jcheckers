@@ -250,7 +250,8 @@ describe("Square", () => {
     describe('with a piece', () => {
       it('must mark the piece as selected', () => {
         let square = new Square({id: 1, x: 1, y: 1, piece: { id: 1, player_number: 1, king: false, selected: false }}); 
-        square.select();
+        let result = square.select();
+        expect(result).toBe(true);
         expect(square.piece.selected).toBe(true);
       });
     });
@@ -258,7 +259,8 @@ describe("Square", () => {
     describe('without a piece', () => {
       it('must not do anything', () => {
         let square = new Square({id: 1, x: 1, y: 1, piece: null}); 
-        square.select();
+        let result = square.select();
+        expect(result).toBe(false);
         expect(square.piece).toBe(null);
       });
     }); 
@@ -268,7 +270,8 @@ describe("Square", () => {
     describe('with a piece', () => {
       it('must mark the piece as not selected', () => {
         let square = new Square({id: 1, x: 1, y: 1, piece: { id: 1, player_number: 1, king: false, selected: true }}); 
-        square.deselect();
+        let result = square.deselect();
+        expect(result).toBe(true);
         expect(square.piece.selected).toBe(false);
       });
     });
@@ -276,7 +279,8 @@ describe("Square", () => {
     describe('without a piece', () => {
       it('must not do anything', () => {
         let square = new Square({id: 1, x: 1, y: 1, piece: null}); 
-        square.deselect();
+        let result = square.deselect();
+        expect(result).toBe(false);
         expect(square.piece).toBe(null);
       });
     });
@@ -285,7 +289,8 @@ describe("Square", () => {
   describe('mark', () => {
     it('must mark the square as selected', () => {
       let square = new Square({id: 1, x: 1, y: 1, piece: null, marked: false}); 
-      square.mark();
+      let result = square.mark();
+      expect(result).toBe(true);
       expect(square.marked).toBe(true);
     });
   });
@@ -293,7 +298,8 @@ describe("Square", () => {
   describe('unmark', () => {
     it('must unmark the square as selected', () => {
       let square = new Square({id: 1, x: 1, y: 1, piece: null, marked: true}); 
-      square.unmark();
+      let result = square.unmark();
+      expect(result).toBe(true);
       expect(square.marked).toBe(false);
     });
   });
@@ -302,7 +308,8 @@ describe("Square", () => {
     describe('with a piece', () => {
       it('promotes the piece', () => {
         let square = new Square({id: 1, x: 1, y: 1, piece: { id: 1, player_number: 1, king: false}}); 
-        square.promote();
+        let result = square.promote();
+        expect(result).toBe(true);
         expect(square.piece.king).toBe(true);
       });
     });
@@ -310,7 +317,8 @@ describe("Square", () => {
     describe('without a piece', () => {
       it('does not promote the piece', () => {
         let square = new Square({id: 1, x: 1, y: 1, piece: null }); 
-        square.promote();
+        let result = square.promote();
+        expect(result).toBe(false);
         expect(square.piece).toBe(null);
       });
     });

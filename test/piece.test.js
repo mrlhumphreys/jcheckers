@@ -57,7 +57,8 @@ describe('Piece', () => {
   describe('select', () => {
     it('marks the piece as selected', () => {
       let piece = new Piece({player_number: 1, selected: false});
-      piece.select();
+      let result = piece.select();
+      expect(result).toBe(true);
       expect(piece.selected).toBe(true);
     });
   });
@@ -65,7 +66,8 @@ describe('Piece', () => {
   describe('deselect', () => {
     it('marks the piece as not selected', () => {
       let piece = new Piece({player_number: 1, selected: true});
-      piece.deselect();
+      let result = piece.deselect();
+      expect(result).toBe(true);
       expect(piece.selected).toBe(false);
     });
   });
@@ -73,7 +75,8 @@ describe('Piece', () => {
   describe('promote', () => {
     it('promotes the piece to king', () => {
       let piece = new Piece({player_number: 1, king: false});
-      piece.promote();
+      let result = piece.promote();
+      expect(result).toBe(true);
       expect(piece.king).toBe(true);
     });
   });
