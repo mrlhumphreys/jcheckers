@@ -31,16 +31,6 @@ describe("SquareSet", () => {
     });
   });
 
-  describe("push", () => {
-    it('must have more squares', () => {
-      let squares = fixtures('withNoSquareSquareSet');
-      let square = new Square({x: 7, y: 7});
-      let result = squares.push(square);
-      expect(result).toBe(true);
-      expect(squares.squares.length).toBe(1);
-    });
-  });
-
   describe('allMovesForPlayer', () => {
     describe('with jumps', () => {
       it('must return all jumps for the specified player', () => {

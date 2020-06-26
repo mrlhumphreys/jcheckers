@@ -2,7 +2,7 @@
   "name": "@mrlhumphreys/jcheckers",
   "author": "Mark Humphreys <mark@mrlhumphreys.com> (https://github.com/mrlhumphreys",
   "description": "Checkers game state and move validation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "lib/index.js",
   "keywords": [
     "Checkers",
@@ -32,6 +32,6 @@
     "jest": "^24.1.0"
   },
   "dependencies": {
-    "@mrlhumphreys/jboardgame": "0.4.0"
+    "@mrlhumphreys/jboardgame": "2.0.3"
   }
 }

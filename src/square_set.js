@@ -14,6 +14,7 @@ import {
   some,
   none,
   filter,
+  push,
   occupiedByOpponentOf,
   occupiedByPlayer,
   occupied,
@@ -89,6 +90,9 @@ class SquareSet {
     this.filter = filter;
 
     /** @member {Function} */
+    this.push = push;
+
+    /** @member {Function} */
     this.occupiedByOpponentOf = occupiedByOpponentOf;
 
     /** @member {Function} */
@@ -111,16 +115,6 @@ class SquareSet {
     
     /** @member {Function} */
     this.between = between;
-  }
-
-  /**
-   * Push a square onto the set
-   * @param {Square} square - The square being pushed;
-   * @return {boolean} The result.
-   */
-  push(square) {
-    this.squares.push(square);
-    return true;
   }
 
   /**

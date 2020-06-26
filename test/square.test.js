@@ -3,75 +3,10 @@ import SquareSet from '../src/square_set'
 import fixtures from './fixtures'
 
 describe("Square", () => {
-  describe('asJson', () => {
-    it('must return the square as json', () => {
-      let square = new Square({id: 1, x: 1, y: 1, piece: { player_number: 1 } });
-      expect(square.asJson).toEqual({ 
-        id: 1, 
-        x: 1, 
-        y: 1, 
-        marked: false, 
-        piece: { 
-          player_number: 1, 
-          king: false, 
-          selected: false 
-        } 
-      });
-    });
-
-    it('must return null for the piece if piece is null', () => {
-      let square = new Square({id: 1, x: 1, y: 1, piece: null });
-      expect(square.asJson).toEqual({ 
-        id: 1, 
-        x: 1, 
-        y: 1, 
-        marked: false, 
-        piece: null
-      });
-    });
-  });
-
-  describe('occupiedByPlayer', () => {
-    describe('when piece is owned by the player', () => {
-      it('must return true', () => {
-        let square = fixtures('square', { piece: { player_number: 1 }});
-        expect(square.occupiedByPlayer(1)).toBe(true);
-      });
-    });
-
-    describe('when piece is not owned by the player', () => {
-      it('must return false', () => {
-        let square = fixtures('square', { piece: { player_number: 2 }});
-        expect(square.occupiedByPlayer(1)).toBe(false);
-      });
-    });
-  });
-
-  describe('occupiedByOpponentOf', () => {
-    describe('when piece is owned by the player', () => {
-      it('must return false', () => {
-        let square = fixtures('square', { piece: { player_number: 1 }});
-        expect(square.occupiedByOpponentOf(1)).toBe(false);
-      });
-    });
-
-    describe('when piece is not owned by the player', () => {
-      it('must return true', () => {
-        let square = fixtures('square', { piece: { player_number: 2 }});
-        expect(square.occupiedByOpponentOf(1)).toBe(true);
-      });
-    });
-  });
-
   describe("with a piece", () => {
     it("must have the same player as the piece", () => {
       let square = new Square({x: 1, y: 1, piece: { player_number: 1, king: false } });
       expect(square.player).toEqual(square.piece.player);
-    });
-
-    it("must not be occupied", () => {
-      let square = new Square({x: 1, y: 1, piece: { player_number: 1, king: false } });
-      expect(square.unoccupied).toBe(false);
     });
   });
 
@@ -79,11 +14,6 @@ describe("Square", () => {
     it("must have a null player", () => {
       let square = new Square({x: 1, y: 1, piece: null });
       expect(square.player).toBe(null);
-    });
-
-    it("must not be occupied", () => {
-      let square = new Square({x: 1, y: 1, piece: null });
-      expect(square.unoccupied).toBe(true);
     });
   });
 
@@ -211,8 +141,8 @@ describe("Square", () => {
   describe("point", () => {
     it("must have coordinates equal to the square", () => {
       let square = new Square({x: 1, y: 1, piece: { player_number: 1, king: false } });
-      expect(square.point.x).toEqual(1);
-      expect(square.point.y).toEqual(1);
+      expect(square.point().x).toEqual(1);
+      expect(square.point().y).toEqual(1);
     });
   });
 
@@ -242,46 +172,6 @@ describe("Square", () => {
         let square = new Square({x: 0, y: 1, piece: null });
         let result = square.lastRankForPlayer(2); 
         expect(result).toBe(false);
-      });
-    });
-  });
-
-  describe('select', () => {
-    describe('with a piece', () => {
-      it('must mark the piece as selected', () => {
-        let square = new Square({id: 1, x: 1, y: 1, piece: { id: 1, player_number: 1, king: false, selected: false }}); 
-        let result = square.select();
-        expect(result).toBe(true);
-        expect(square.piece.selected).toBe(true);
-      });
-    });
-
-    describe('without a piece', () => {
-      it('must not do anything', () => {
-        let square = new Square({id: 1, x: 1, y: 1, piece: null}); 
-        let result = square.select();
-        expect(result).toBe(false);
-        expect(square.piece).toBe(null);
-      });
-    }); 
-  });
-
-  describe('deselect', () => {
-    describe('with a piece', () => {
-      it('must mark the piece as not selected', () => {
-        let square = new Square({id: 1, x: 1, y: 1, piece: { id: 1, player_number: 1, king: false, selected: true }}); 
-        let result = square.deselect();
-        expect(result).toBe(true);
-        expect(square.piece.selected).toBe(false);
-      });
-    });
-
-    describe('without a piece', () => {
-      it('must not do anything', () => {
-        let square = new Square({id: 1, x: 1, y: 1, piece: null}); 
-        let result = square.deselect();
-        expect(result).toBe(false);
-        expect(square.piece).toBe(null);
       });
     });
   });

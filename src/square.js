@@ -1,6 +1,16 @@
 import { exists } from './utils';
 import Point from './point';
 import Piece from './piece';
+import {
+  squareAsJson,
+  squareOccupied,
+  squareUnoccupied,
+  squareOccupiedByPlayer,
+  squareOccupiedByOpponentOf,
+  point,
+  select,
+  deselect,
+} from '@mrlhumphreys/jboardgame';
 
 //** A square on a grid **/
 class Square {
@@ -31,21 +41,39 @@ class Square {
 
     /** @member {(Piece|null)} */
     this.piece = exists(args.piece) ? new Piece(args.piece) : null;
+
+    /** @member {Function} */
+    this.baseJson = squareAsJson;
+
+    /** @member {Function} */
+    this.occupied = squareOccupied;
+
+    /** @member {Function} */
+    this.unoccupied = squareUnoccupied;
+
+    /** @member {Function} */
+    this.occupiedByPlayer = squareOccupiedByPlayer;
+
+    /** @member {Function} */
+    this.occupiedByOpponentOf = squareOccupiedByOpponentOf;
+
+    /** @member {Function} */
+    this.point = point;
+
+    /** @member {Function} */
+    this.select = select;
+
+    /** @member {Function} */
+    this.deselect = deselect;
   }
 
   /**
    * Serialize the square as a simple object.
    * @return {Object} The serialized object.
    */
-  get asJson() {
-    let pieceJson = exists(this.piece) ? this.piece.asJson : null;
-    return {
-      id: this.id,
-      x: this.x,
-      y: this.y,
-      marked: this.marked,
-      piece: pieceJson 
-    };
+  asJson() {
+    let extraJson = { marked: this.marked };
+    return Object.assign(this.baseJson(), extraJson);
   }
 
   /**
@@ -111,48 +139,6 @@ class Square {
   }
 
   /**
-   * Is the square occupied?
-   * @return {boolean} The result.
-   */
-  get occupied() {
-    return this.piece != null;
-  }
-
-  /**
-   * Is the square occupied by the player?
-   * @param {number} playerNumber - The player in question.
-   * @return {boolean} The result.
-   */
-  occupiedByPlayer(playerNumber) {
-    return exists(this.piece) && (this.piece.playerNumber === playerNumber);
-  }
-
-  /**
-   * Is the square occupied by the opponent of player?
-   * @param {number} playerNumber - The player in question.
-   * @return {boolean} The result.
-   */
-  occupiedByOpponentOf(playerNumber) {
-    return exists(this.piece) && (this.piece.playerNumber != playerNumber);
-  }
-
-  /**
-   * Is the square unoccupied? 
-   * @return {boolean} The result.
-   */
-  get unoccupied() {
-    return this.piece === null;
-  }
-
-  /**
-   * The point based on the square's position
-   * @return {Point} The square's point.
-   */
-  get point() {
-    return new Point(this.x, this.y);
-  }
-
-  /**
    * The y co-ordinate of the last rank of the player.
    * @param {number} playerNumber - The player's number.
    * @return {number} The last rank of the player. 
@@ -162,30 +148,6 @@ class Square {
   }
 
   // actions
-
-  /**
-   * Select the piece.
-   * @return {boolean} The result.
-   */
-  select() {
-    if (exists(this.piece)) {
-      return this.piece.select();
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * Deselect the piece.
-   * @return {boolean} The result.
-   */
-  deselect() {
-    if (exists(this.piece)) {
-      return this.piece.deselect();
-    } else {
-      return false;
-    }
-  }
 
   /**
    * Mark the square.
