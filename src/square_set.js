@@ -22,9 +22,9 @@ import {
   squaresAwayFrom,
   twoSquaresAwayFrom,
   oneSquareAwayFrom,
-  between
+  between,
+  Vector
 } from '@mrlhumphreys/jboardgame';
-import Vector from './vector';
 import Square from './square';
 
 //** A set of Squares **/

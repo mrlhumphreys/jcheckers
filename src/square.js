@@ -1,5 +1,4 @@
 import { exists } from './utils';
-import Point from './point';
 import Piece from './piece';
 import {
   squareAsJson,
@@ -10,6 +9,7 @@ import {
   point,
   select,
   deselect,
+  Point,
 } from '@mrlhumphreys/jboardgame';
 
 //** A square on a grid **/

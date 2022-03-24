@@ -1,5 +1,5 @@
 import { eachCons, exists } from './utils'
-import Vector from './vector'
+import { Vector } from '@mrlhumphreys/jboardgame'
 
 class Move {
   constructor(args) {
